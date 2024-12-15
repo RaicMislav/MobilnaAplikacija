@@ -1,14 +1,17 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ImageBackground } from 'react-native';
+
+// Ensure the path is correct to the background image
+import background from '../assets/background.jpg';
 
 const Home = () => {
   return (
-    <View style={styles.container}>
+    <ImageBackground source={background} style={styles.container} resizeMode="cover">
       <Text style={styles.title}>Dobrodošli na našu FSRE Aplikaciju</Text>
       <Text style={styles.subtitle}>Platforma za olakšanu navigaciju kroz studij.</Text>
 
       {/* Logo */}
-      <Image source={require('../assets/logoblack.png')} style={styles.logo} />
+      <Image source={require('../assets/logo.png')} style={styles.logo} />
 
       {/* Buttons */}
       <View style={styles.buttonContainer}>
@@ -19,35 +22,34 @@ const Home = () => {
           <Text style={styles.buttonOutlineText}>Saznaj više</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f0f0f0',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
     padding: 20,
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#fff',  // Ensure title is white for visibility
     marginBottom: 10,
     textAlign: 'center',
   },
   subtitle: {
     fontSize: 16,
-    color: '#666',
+    color: '#fff',  // Make subtitle white as well for contrast
     marginBottom: 30,
     textAlign: 'center',
     lineHeight: 22,
   },
   logo: {
-    width: 150, // Adjust this to match your logo size
-    height: 150, // Adjust this to match your logo size
+    width: 150, // Adjust to match your logo size
+    height: 150, // Adjust to match your logo size
     marginBottom: 30,
     resizeMode: 'contain', // Keeps the aspect ratio of your logo
   },
@@ -79,7 +81,7 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   buttonOutlineText: {
-    color: 'navy',
+    color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
   },

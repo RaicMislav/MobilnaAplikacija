@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, Text, StyleSheet, Alert } from "react-native";
+import { View, Text, StyleSheet, Alert, ImageBackground } from "react-native";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { auth, firestore } from "../firebaseConfig";
 import { AuthContext } from "../AuthContext";
 
 import LoginInput from "./ui/LoginInput";
 import LoginButton from "./ui/LoginButton";
+
+// Import background image
+import backgroundImage from '../assets/background.jpg';  // Adjust path if necessary
 
 export default function LoggedInView() {
   const { logout } = useContext(AuthContext);
@@ -50,55 +53,65 @@ export default function LoggedInView() {
     }
   };
 
+  // Display loading screen with background color
   if (loading) {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { backgroundColor: '#f0f0f0' }]}>
         <Text style={styles.text}>Učitavanje profila...</Text>
       </View>
     );
   }
 
+  // Once profile is loaded, show the background image
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Dobrodošli na sustav</Text>
+    <ImageBackground source={backgroundImage} style={styles.container}>
+      <View style={styles.contentContainer}>
+        <Text style={styles.text}>Dobrodošli na sustav</Text>
 
-      <LoginButton title="Odjavi se" onPress={logout} />
+        <LoginButton title="Odjavi se" onPress={logout} />
 
-      <LoginInput 
-        placeholder="Unesite svoje ime"
-        value={profile.name}
-        onChangeText={(text) => setProfile({ ...profile, name: text })}
-      />
+        <LoginInput 
+          placeholder="Unesite svoje ime"
+          value={profile.name}
+          onChangeText={(text) => setProfile({ ...profile, name: text })}
+        />
 
-      <LoginInput 
-        placeholder="Unesite svoje godine"
-        value={profile.age}
-        onChangeText={(text) => setProfile({ ...profile, age: text })}
-        keyboardType="numeric"
-      />
+        <LoginInput 
+          placeholder="Unesite svoje godine"
+          value={profile.age}
+          onChangeText={(text) => setProfile({ ...profile, age: text })}
+          keyboardType="numeric"
+        />
 
-      <LoginInput 
-        placeholder="O meni ..."
-        value={profile.bio}
-        onChangeText={(text) => setProfile({ ...profile, bio: text })}
-        multiline
-      />
+        <LoginInput 
+          placeholder="O meni ..."
+          value={profile.bio}
+          onChangeText={(text) => setProfile({ ...profile, bio: text })}
+          multiline
+        />
 
-      <LoginButton title="Spremi profil" onPress={handleSaveProfile} />
-    </View>
+        <LoginButton title="Spremi profil" onPress={handleSaveProfile} />
+      </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  contentContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,  // Prevent text from being too close to the edges
   },
   text: {
     fontSize: 24,
     marginBottom: 20,
     textAlign: 'center',
+    color: 'white', // Text color to stand out on the background
   },
 });
