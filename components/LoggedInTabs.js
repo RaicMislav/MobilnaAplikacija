@@ -2,7 +2,6 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { MaterialIcons } from 'react-native-vector-icons'; 
-import LoggedInView from './LoggedInView';
 import FAQ from './FAQ';
 import Home from './Home';
 import Karta from './Karta';
@@ -22,14 +21,12 @@ const DrawerNavigator = () => {
 const TabNavigator = () => {
   return (
     <Tab.Navigator
-    initialRouteName="Home" // Set Home as the initial tab screen
+      initialRouteName="Home" // Set Home as the initial tab screen
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color, size }) => {
           let iconName;
 
-          if (route.name === 'Profil') {
-            iconName = 'person'; 
-          } else if (route.name === 'FAQ') {
+          if (route.name === 'FAQ') {
             iconName = 'book'; 
           } else if (route.name === 'Karta') {
             iconName = 'map';
@@ -43,10 +40,10 @@ const TabNavigator = () => {
         tabBarInactiveTintColor: 'gray',
       })}
     >
-      <Tab.Screen name="Profil" component={LoggedInView} />
+      {/* Removed Profil Tab */}
+      <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="FAQ" component={FAQ} />
       <Tab.Screen name="Karta" component={Karta} />
-      <Tab.Screen name="Home" component={Home} />
     </Tab.Navigator>
   );
 };
