@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList, ImageBackground } from 'react-native';
 
 export default function FAQScreen() {
   const faqs = [
@@ -17,21 +17,48 @@ export default function FAQScreen() {
   );
 
   return (
-    <View style={styles.container}>
+    <ImageBackground
+      source={require('../assets/background.jpg')} // Path to your background image in assets
+      style={styles.container}
+    >
       <Text style={styles.title}>Frequently Asked Questions</Text>
       <FlatList
         data={faqs}
         keyExtractor={(item) => item.id}
         renderItem={renderFAQItem}
       />
-    </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { padding: 20, flex: 1, backgroundColor: '#f5f5f5' },
-  title: { fontSize: 24, textAlign: 'center', marginBottom: 20, fontWeight: 'bold', color: '#333' },
-  faqItem: { padding: 15, backgroundColor: '#fff', borderRadius: 8, marginBottom: 15, elevation: 3 },
-  question: { fontSize: 16, fontWeight: 'bold', color: '#000', marginBottom: 5 },
-  answer: { fontSize: 14, color: '#555' },
+  container: {
+    padding: 20,
+    flex: 1,
+    justifyContent: 'flex-start',
+  },
+  title: {
+    fontSize: 24,
+    textAlign: 'center',
+    marginBottom: 20,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  faqItem: {
+    padding: 15,
+    backgroundColor: 'rgba(255, 255, 255, 0.7)', // Semi-transparent white for better contrast
+    borderRadius: 8,
+    marginBottom: 15,
+    elevation: 3,
+  },
+  question: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#000',
+    marginBottom: 5,
+  },
+  answer: {
+    fontSize: 14,
+    color: '#555',
+  },
 });
