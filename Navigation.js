@@ -5,12 +5,10 @@ import LoggedOutView from "./components/LoggedOutView";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-
 const Stack = createStackNavigator();
 
 export default Navigation = () => {
     const { isLoggedIn } = useContext(AuthContext);
-
     return (
         <NavigationContainer>
             <Stack.Navigator>

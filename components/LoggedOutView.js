@@ -13,7 +13,6 @@ export default function LoggedOutView() {
   const [passw, setPassw] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
-  //PROVJERA JE LI EMail VALID
   const isValidEmail = (email) => {
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return regex.test(email);
@@ -29,7 +28,6 @@ export default function LoggedOutView() {
         login();
       })
       .catch((error) => {
-        //ERROR MESSAGE TEXT
         let errorMessage = "Something went wrong. Please try again.";
         
         if (error.code === "auth/invalid-email") {

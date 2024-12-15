@@ -7,11 +7,9 @@ import FAQ from './FAQ';
 import Home from './Home';
 import Karta from './Karta';
 
-// Initialize Tab and Drawer navigators
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
-// Drawer navigator (minimal, blank screen for now)
 const DrawerNavigator = () => {
   return (
     <Drawer.Navigator>
@@ -21,7 +19,6 @@ const DrawerNavigator = () => {
   );
 };
 
-// Bottom Tab Navigator
 const TabNavigator = () => {
   return (
     <Tab.Navigator
