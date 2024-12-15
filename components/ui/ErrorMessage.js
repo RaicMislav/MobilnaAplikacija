@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 10,
         alignItems: "center",
-        marginVertical: 8,
-        width: "80%"
+        marginVertical: 6,
+        width: "28%"
     },
     errorText: {
         color: "red",

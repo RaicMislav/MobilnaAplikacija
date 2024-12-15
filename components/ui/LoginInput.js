@@ -1,7 +1,7 @@
 import React from "react"
 import { TextInput, StyleSheet } from "react-native";
 
-export default function LoginInput ({placeholder, value, onChangeText, secureTextEntry}) {
+export default function LoginInput ({placeholder, value, onChangeText, secureTextEntry, onSubmitEditing}) {
     return (
         <TextInput
             style={styles.input}
@@ -9,6 +9,7 @@ export default function LoginInput ({placeholder, value, onChangeText, secureTex
             value={value}
             onChangeText={onChangeText} 
             secureTextEntry={secureTextEntry}
+            onSubmitEditing={onSubmitEditing}
         />
     );
 }
@@ -21,6 +22,6 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginBottom: 12,
         paddingLeft: 8,
-        width: "80%",
+        width: "28%",
     }
 });
