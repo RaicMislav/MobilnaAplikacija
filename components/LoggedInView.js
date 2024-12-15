@@ -2,9 +2,7 @@ import React, { useContext } from "react";
 import { View, Text, StyleSheet, ImageBackground } from "react-native";
 import { AuthContext } from "../AuthContext";
 import LoginButton from "./ui/LoginButton";
-
-// Import background image
-import backgroundImage from '../assets/background.jpg';  // Adjust path if necessary
+import backgroundImage from '../assets/background.jpg';  
 
 export default function LoggedInView() {
   const { logout } = useContext(AuthContext);
@@ -31,12 +29,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,  // Prevent text from being too close to the edges
+    padding: 20,  
   },
   text: {
     fontSize: 24,
     marginBottom: 20,
     textAlign: 'center',
-    color: 'white', // Text color to stand out on the background
+    color: 'white', 
   },
 });

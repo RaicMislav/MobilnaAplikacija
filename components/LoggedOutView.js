@@ -6,8 +6,6 @@ import ErrorMessage from "./ui/ErrorMessage";
 import { AuthContext } from "../AuthContext";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebaseConfig";
-
-// Correct path to logo
 import logo from '../assets/logo.png';
 
 export default function LoggedOutView() {
@@ -49,7 +47,7 @@ export default function LoggedOutView() {
 
   return (
     <ImageBackground
-      source={require("../assets/background.jpg")}  // Adjusted background path
+      source={require("../assets/background.jpg")} 
       style={styles.background}
       resizeMode="stretch"
     >
@@ -93,9 +91,9 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   logo: {
-    width: 150, // Adjust width
-    height: 150, // Adjust height
-    marginBottom: 20, // Add space between logo and the rest
+    width: 150, 
+    height: 150, 
+    marginBottom: 20, 
   },
   welcomeText: {
     fontSize: 24,
