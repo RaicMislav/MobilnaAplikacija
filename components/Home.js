@@ -1,24 +1,22 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 const Home = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome to Our App</Text>
-      <Text style={styles.subtitle}>Your one-stop solution for managing everything efficiently.</Text>
-      
-      {/* Placeholder for a logo */}
-      <View style={styles.logoPlaceholder}>
-        <Text style={styles.logoText}>LOGO</Text>
-      </View>
-      
-      {/* Placeholder for buttons */} 
+      <Text style={styles.title}>Dobrodošli u našu FSRE Aplikaciju</Text>
+      <Text style={styles.subtitle}>Platforma za olakšanu navigaciju kroz studij.</Text>
+
+      {/* Logo */}
+      <Image source={require('../assets/logo.jpg')} style={styles.logo} />
+
+      {/* Buttons */}
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Get Started</Text>
+          <Text style={styles.buttonText}>Početak</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttonOutline}>
-          <Text style={styles.buttonOutlineText}>Learn More</Text>
+          <Text style={styles.buttonOutlineText}>Saznaj više</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -47,19 +45,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 22,
   },
-  logoPlaceholder: {
-    width: 100,
-    height: 100,
-    backgroundColor: '#ddd',
-    borderRadius: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
+  logo: {
+    width: 150, // Adjust this to match your logo size
+    height: 150, // Adjust this to match your logo size
     marginBottom: 30,
-  },
-  logoText: {
-    color: '#999',
-    fontSize: 14,
-    fontWeight: 'bold',
+    resizeMode: 'contain', // Keeps the aspect ratio of your logo
   },
   buttonContainer: {
     width: '100%',
