@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "blue",
         borderRadius: 5,
-        width: "28%",
+        width: "25%",
         marginBottom: 10,
     },
     buttonText: {

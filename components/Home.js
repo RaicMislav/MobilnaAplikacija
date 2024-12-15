@@ -4,11 +4,11 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 const Home = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Dobrodošli u našu FSRE Aplikaciju</Text>
+      <Text style={styles.title}>Dobrodošli na našu FSRE Aplikaciju</Text>
       <Text style={styles.subtitle}>Platforma za olakšanu navigaciju kroz studij.</Text>
 
       {/* Logo */}
-      <Image source={require('../assets/logo.jpg')} style={styles.logo} />
+      <Image source={require('../assets/logoblack.png')} style={styles.logo} />
 
       {/* Buttons */}
       <View style={styles.buttonContainer}>

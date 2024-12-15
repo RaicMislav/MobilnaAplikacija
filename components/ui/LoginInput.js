@@ -16,12 +16,11 @@ export default function LoginInput ({placeholder, value, onChangeText, secureTex
 
 const styles = StyleSheet.create({
     input: {
-        height: 40,
-        borderColor: "gray",
-        borderWidth: 1,
-        borderRadius: 5,
-        marginBottom: 12,
-        paddingLeft: 8,
-        width: "28%",
-    }
-});
+      backgroundColor: 'white',   // Set background to white
+      borderRadius: 8,            // Optional: rounded corners
+      padding: 12,                // Optional: padding for text inside
+      width: '25%',              // Optional: full width of the container
+      marginBottom: 10,           // Optional: space between inputs
+      fontSize: 16,               // Optional: text size inside input
+    },
+  });
