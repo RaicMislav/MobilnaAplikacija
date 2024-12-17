@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
         borderColor: "blue",
         borderRadius: 5,
         width: "25%",
-        marginBottom: 10,
+        marginVertical: 5,
     },
     buttonText: {
         color: '#FFFFFF', 
