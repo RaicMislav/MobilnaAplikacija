@@ -6,6 +6,7 @@ import background from '../assets/background.jpg';
 
 const Home = () => {
   const navigation = useNavigation();
+
   return (
     <ImageBackground source={background} style={styles.container} resizeMode="cover">
       <Text style={styles.title}>Dobrodošli na našu FSRE Aplikaciju</Text>
@@ -16,12 +17,15 @@ const Home = () => {
 
       {/* Buttons */}
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('Novosti')} 
+        >
           <Text style={styles.buttonText}>Početak</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonOutline}
-          onPress={() => navigation.navigate('FAQ')} 
+          onPress={() => navigation.navigate('FAQ')}
         >
           <Text style={styles.buttonOutlineText}>Saznaj više</Text>
         </TouchableOpacity>
@@ -40,22 +44,22 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#fff',  
+    color: '#fff',
     marginBottom: 10,
     textAlign: 'center',
   },
   subtitle: {
     fontSize: 16,
-    color: '#fff',  
+    color: '#fff',
     marginBottom: 30,
     textAlign: 'center',
     lineHeight: 22,
   },
   logo: {
-    width: 150, 
-    height: 150, 
+    width: 150,
+    height: 150,
     marginBottom: 30,
-    resizeMode: 'contain', 
+    resizeMode: 'contain',
   },
   buttonContainer: {
     width: '100%',

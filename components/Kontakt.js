@@ -1,12 +1,15 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, ImageBackground, Linking } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
+import { useNavigation } from '@react-navigation/native';  
 
 export default function KontaktScreen() {
+  const navigation = useNavigation(); 
+
   const contactItems = [
     { id: '1', label: 'Adresa', value: 'Matice hrvatske b.b., 88000 Mostar, Bosna i Hercegovina' },
-    { id: '2', label: 'Telefon', value: '+387 (36) 337-001', action: 'phone' },
+    { id: '2', label: 'Telefon', value: '+387 (36) 337-002', action: 'phone' },
     { id: '3', label: 'Email', value: 'office@fsre.sum.ba', action: 'email' },
-    { id: '4', label: 'Posjetite nas', value: 'Pogledaj na mapi', action: 'map' },
+    { id: '4', label: 'Posjetite nas', value: 'Pogledaj na mapi', action: 'map' }, 
   ];
 
   const handleAction = (action, value) => {
@@ -15,7 +18,7 @@ export default function KontaktScreen() {
     } else if (action === 'email') {
       Linking.openURL(`mailto:${value}`);
     } else if (action === 'map') {
-      Linking.openURL('https://goo.gl/maps/xyz'); 
+      navigation.navigate('Karta'); 
     }
   };
 
@@ -30,7 +33,7 @@ export default function KontaktScreen() {
 
   return (
     <ImageBackground
-      source={require('../assets/background.jpg')} 
+      source={require('../assets/background.jpg')}
       style={styles.container}
     >
       <Text style={styles.title}>Kontaktirajte nas</Text>
@@ -42,16 +45,16 @@ export default function KontaktScreen() {
         contentContainerStyle={styles.contactList}
       />
 
-      <View style={styles.socialMedia}>
+      <View style={styles.socialMediaBox}>
         <Text style={styles.subtitle}>Pratite nas na društvenim mrežama</Text>
         <View style={styles.socialLinks}>
-          <TouchableOpacity onPress={() => Linking.openURL('https://www.facebook.com/fsre.mostar')}>
+          <TouchableOpacity style={styles.socialLink} onPress={() => Linking.openURL('https://www.facebook.com/fsre.mostar')}>
             <Text style={styles.socialText}>Facebook</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => Linking.openURL('https://fsre.sum.ba')}>
+          <TouchableOpacity style={styles.socialLink} onPress={() => Linking.openURL('https://fsre.sum.ba')}>
             <Text style={styles.socialText}>Službena Web Stranica</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => Linking.openURL('https://www.instagram.com/fsre.sum/?hl=en')}>
+          <TouchableOpacity style={styles.socialLink} onPress={() => Linking.openURL('https://www.instagram.com/fsre.sum/?hl=en')}>
             <Text style={styles.socialText}>Instagram</Text>
           </TouchableOpacity>
         </View>
@@ -102,17 +105,27 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginBottom: 10,
   },
-  socialMedia: {
+  socialMediaBox: {
     marginTop: 20,
-    paddingHorizontal: 20,
+    padding: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.7)', 
+    borderRadius: 10,
+    elevation: 5,
   },
   socialLinks: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+  },
+  socialLink: {
+    backgroundColor: 'navy',
+    paddingVertical: 10,
+    marginVertical: 8,
+    borderRadius: 5,
+    alignItems: 'center',
   },
   socialText: {
-    fontSize: 16,
     color: '#fff',
-    textDecorationLine: 'underline',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });

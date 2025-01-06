@@ -19,12 +19,10 @@ const NovostiScreen = () => {
     ]
   };
 
-  // Toggle language function
   const toggleLanguage = () => {
     setLanguage(language === 'en' ? 'hr' : 'en');
   };
 
-  // Render news items
   const renderNewsItem = ({ item }) => (
     <View style={styles.newsItem}>
       <Text style={styles.newsTitle}>{item.title}</Text>
@@ -63,8 +61,8 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    justifyContent: 'space-between', 
+    alignItems: 'center', 
     marginBottom: 30,
   },
   title: {
