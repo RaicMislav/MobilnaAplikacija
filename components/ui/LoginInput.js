@@ -1,5 +1,5 @@
 import React from "react"
-import { TextInput, StyleSheet } from "react-native";
+import { TextInput, StyleSheet, Dimensions } from "react-native";
 
 export default function LoginInput ({placeholder, value, onChangeText, secureTextEntry, onSubmitEditing}) {
     return (
@@ -14,12 +14,14 @@ export default function LoginInput ({placeholder, value, onChangeText, secureTex
     );
 }
 
+const { width } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
     input: {
       backgroundColor: 'white',   
       borderRadius: 8,            
       padding: 12,               
-      width: '50%',              
+      width: width > 700 ? '50%' : width > 500 ? '65%' : '80%',        
       marginBottom: 10,         
       fontSize: 16,          
     },
