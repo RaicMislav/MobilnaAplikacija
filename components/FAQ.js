@@ -4,7 +4,6 @@ import { View, Text, StyleSheet, FlatList, ImageBackground, TouchableOpacity } f
 export default function FAQScreen() {
   const [language, setLanguage] = useState('en'); 
 
- 
   const faqs = {
     en: [
       { id: '1', question: 'What is this app about?', answer: 'This app helps you manage tasks efficiently and stay organized.' },
@@ -20,11 +19,9 @@ export default function FAQScreen() {
     ],
   };
 
-
   const toggleLanguage = () => {
     setLanguage(language === 'en' ? 'hr' : 'en');
   };
-
 
   const renderFAQItem = ({ item }) => (
     <View style={styles.faqItem}>
@@ -39,7 +36,7 @@ export default function FAQScreen() {
       style={styles.container}
     >
       <View style={styles.header}>
-        <Text style={styles.title}>Frequently Asked Questions</Text>
+        <Text style={styles.title}>FAQ</Text>
         <TouchableOpacity onPress={toggleLanguage} style={styles.languageButton}>
           <Text style={styles.languageText}>{language === 'en' ? 'EN' : 'HR'}</Text>
         </TouchableOpacity>
@@ -68,9 +65,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   title: {
-    fontSize: 24,
-    textAlign: 'center',
-    marginBottom: 20,
+    fontSize: 28,
     fontWeight: 'bold',
     color: '#fff',
   },
@@ -79,6 +74,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   languageText: {
     color: '#fff',
