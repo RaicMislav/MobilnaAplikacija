@@ -5,6 +5,7 @@ import { MaterialIcons } from 'react-native-vector-icons';
 import FAQ from './FAQ';
 import Home from './Home';
 import Karta from './Karta';
+import Kontakt from './Kontakt';
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -12,7 +13,6 @@ const Drawer = createDrawerNavigator();
 const DrawerNavigator = () => {
   return (
     <Drawer.Navigator>
-      {/* Blank Drawer screen */}
       <Drawer.Screen name="Drawer Screen" component={() => null} />
     </Drawer.Navigator>
   );
@@ -33,6 +33,10 @@ const TabNavigator = () => {
           } else if (route.name === 'Home') {
             iconName = 'home';
           }
+          else if (route.name === 'Kontakt') {
+            iconName = 'phone';
+          }
+          
 
           return <MaterialIcons name={iconName} size={size} color={color} />;
         },
@@ -40,10 +44,11 @@ const TabNavigator = () => {
         tabBarInactiveTintColor: 'gray',
       })}
     >
-      {/* Removed Profil Tab */}
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="FAQ" component={FAQ} />
       <Tab.Screen name="Karta" component={Karta} />
+      <Tab.Screen name="Kontakt" component={Kontakt} />
+
     </Tab.Navigator>
   );
 };

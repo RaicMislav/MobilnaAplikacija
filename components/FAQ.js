@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
 
 export default function FAQScreen() {
-  const [language, setLanguage] = useState('en'); // State to track selected language
+  const [language, setLanguage] = useState('en'); 
 
-  // Translations for text
   const translations = {
     en: {
       title: 'Frequently Asked Questions',
@@ -28,7 +27,7 @@ export default function FAQScreen() {
     },
   };
 
-  const t = translations[language]; // Get current translations
+  const t = translations[language]; 
 
   const renderFAQItem = ({ item }) => (
     <View style={styles.faqItem}>
@@ -42,6 +41,7 @@ export default function FAQScreen() {
       source={require('../assets/background.jpg')} 
       style={styles.container}
     >
+      
       <Text style={styles.title}>{t.title}</Text>
       
       <FlatList
@@ -50,7 +50,6 @@ export default function FAQScreen() {
         renderItem={renderFAQItem}
       />
 
-      {/* Language Switch Button */}
       <TouchableOpacity
         onPress={() => setLanguage(language === 'en' ? 'hrv' : 'en')}
         style={styles.languageButton}
@@ -69,10 +68,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    textAlign: 'center',
+    textAlign: 'left', 
     marginBottom: 20,
     fontWeight: 'bold',
     color: '#fff',
+    marginTop: 10, 
   },
   faqItem: {
     padding: 15,
@@ -92,17 +92,20 @@ const styles = StyleSheet.create({
     color: '#555',
   },
   languageButton: {
-    marginTop: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    position: 'absolute',
+    top: 10, 
+    right: 20, 
+    paddingVertical: 8,
+    paddingHorizontal: 15,
     borderColor: 'white',
     borderWidth: 1,
     borderRadius: 20,
     alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', 
   },
   languageText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 'bold',
   },
 });
