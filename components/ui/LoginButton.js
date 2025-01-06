@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import { TouchableOpacity, Text, StyleSheet, Dimensions } from "react-native";
 
 export default function LoginButton ({title, onPress}) {
     return (
@@ -9,6 +9,8 @@ export default function LoginButton ({title, onPress}) {
     );
 };
 
+const { width } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
     button: {
         padding: 10,
@@ -16,7 +18,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "blue",
         borderRadius: 5,
-        width: "25%",
+        width: width > 700 ? '25%' : width > 500 ? '35%' : '50%',    
         marginVertical: 5,
     },
     buttonText: {

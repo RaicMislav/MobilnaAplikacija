@@ -1,9 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ImageBackground } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import background from '../assets/background.jpg';
 
 const Home = () => {
+  const navigation = useNavigation();
   return (
     <ImageBackground source={background} style={styles.container} resizeMode="cover">
       <Text style={styles.title}>Dobrodošli na našu FSRE Aplikaciju</Text>
@@ -19,7 +21,7 @@ const Home = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonOutline}
-          onPress={() => navigation.navigate('FAQ.js')} 
+          onPress={() => navigation.navigate('FAQ')} 
         >
           <Text style={styles.buttonOutlineText}>Saznaj više</Text>
         </TouchableOpacity>

@@ -1,22 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
 import { MaterialIcons } from 'react-native-vector-icons'; 
 import FAQ from './FAQ';
 import Home from './Home';
 import Karta from './Karta';
+import { AuthContext } from '../AuthContext';
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
-
-const DrawerNavigator = () => {
-  return (
-    <Drawer.Navigator>
-      {/* Blank Drawer screen */}
-      <Drawer.Screen name="Drawer Screen" component={() => null} />
-    </Drawer.Navigator>
-  );
-};
 
 const TabNavigator = () => {
   return (
@@ -49,10 +41,21 @@ const TabNavigator = () => {
 };
 
 export default function LoggedInTabs() {
+  const { logout } = useContext(AuthContext)
   return (
-    <Drawer.Navigator>
+    <Drawer.Navigator  drawerContent={props => {
+      
+        return (
+    <DrawerContentScrollView {...props}>
+      <DrawerItemList {...props} />
+      <DrawerItem label="Logout" onPress={logout} />
+    </DrawerContentScrollView>
+  )
+}}>
       {/* Add the TabNavigator as a screen in the Drawer */}
       <Drawer.Screen name="Fakultet Strojarstva, Računarstva i Elektrotehnike" component={TabNavigator} />
+      
     </Drawer.Navigator>
+
   );
 }
