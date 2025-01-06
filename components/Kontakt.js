@@ -15,7 +15,7 @@ export default function KontaktScreen() {
     } else if (action === 'email') {
       Linking.openURL(`mailto:${value}`);
     } else if (action === 'map') {
-      Linking.openURL('https://goo.gl/maps/xyz'); // Replace with actual map link
+      Linking.openURL('https://goo.gl/maps/xyz'); 
     }
   };
 
@@ -30,7 +30,7 @@ export default function KontaktScreen() {
 
   return (
     <ImageBackground
-      source={require('../assets/background.jpg')} // Replace with your actual background image
+      source={require('../assets/background.jpg')} 
       style={styles.container}
     >
       <Text style={styles.title}>Kontaktirajte nas</Text>
