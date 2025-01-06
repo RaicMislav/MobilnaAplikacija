@@ -3,9 +3,9 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity, ImageBackground, Li
 
 export default function KontaktScreen() {
   const contactItems = [
-    { id: '1', label: 'Adresa', value: 'Mostar, Radoslava Lopašića bb' },
-    { id: '2', label: 'Telefon', value: '+387 36 561 112', action: 'phone' },
-    { id: '3', label: 'Email', value: 'info@fsremostar.ba', action: 'email' },
+    { id: '1', label: 'Adresa', value: 'Matice hrvatske b.b., 88000 Mostar, Bosna i Hercegovina' },
+    { id: '2', label: 'Telefon', value: '+387 (36) 337-001', action: 'phone' },
+    { id: '3', label: 'Email', value: 'office@fsre.sum.ba', action: 'email' },
     { id: '4', label: 'Posjetite nas', value: 'Pogledaj na mapi', action: 'map' },
   ];
 

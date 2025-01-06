@@ -6,6 +6,7 @@ import FAQ from './FAQ';
 import Home from './Home';
 import Karta from './Karta';
 import Kontakt from './Kontakt';
+import Novosti from './Novosti';
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -36,6 +37,9 @@ const TabNavigator = () => {
           else if (route.name === 'Kontakt') {
             iconName = 'phone';
           }
+          else if (route.name === 'Novosti') {
+            iconName = 'email';
+          }
           
 
           return <MaterialIcons name={iconName} size={size} color={color} />;
@@ -45,10 +49,10 @@ const TabNavigator = () => {
       })}
     >
       <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Novosti" component={Novosti} />
       <Tab.Screen name="FAQ" component={FAQ} />
       <Tab.Screen name="Karta" component={Karta} />
       <Tab.Screen name="Kontakt" component={Kontakt} />
-
     </Tab.Navigator>
   );
 };
