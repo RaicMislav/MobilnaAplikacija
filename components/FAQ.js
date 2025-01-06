@@ -1,13 +1,34 @@
-import React from 'react';
-import { View, Text, StyleSheet, FlatList, ImageBackground } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
 
 export default function FAQScreen() {
-  const faqs = [
-    { id: '1', question: 'What is this app about?', answer: 'This app helps you manage tasks efficiently and stay organized.' },
-    { id: '2', question: 'How can I reset my password?', answer: 'Go to the login page and click on "Forgot Password" to reset your password.' },
-    { id: '3', question: 'Can I use this app offline?', answer: 'Some features are available offline, but full functionality requires an internet connection.' },
-    { id: '4', question: 'How do I contact support?', answer: 'You can reach our support team via the "Contact Us" section in the app.' },
-  ];
+  const [language, setLanguage] = useState('en'); // State to track selected language
+
+  // Translations for text
+  const translations = {
+    en: {
+      title: 'Frequently Asked Questions',
+      faqs: [
+        { id: '1', question: 'What is this app about?', answer: 'This app helps you manage tasks efficiently and stay organized.' },
+        { id: '2', question: 'How can I reset my password?', answer: 'Go to the login page and click on "Forgot Password" to reset your password.' },
+        { id: '3', question: 'Can I use this app offline?', answer: 'Some features are available offline, but full functionality requires an internet connection.' },
+        { id: '4', question: 'How do I contact support?', answer: 'You can reach our support team via the "Contact Us" section in the app.' },
+      ],
+      switchTo: 'Switch to Croatian',
+    },
+    hrv: {
+      title: 'Često postavljana pitanja',
+      faqs: [
+        { id: '1', question: 'Što je ova aplikacija?', answer: 'Ova aplikacija pomaže u efikasnom upravljanju zadacima i organizaciji.' },
+        { id: '2', question: 'Kako mogu resetirati svoju lozinku?', answer: 'Idite na stranicu za prijavu i kliknite na "Zaboravljena lozinka" da biste resetirali svoju lozinku.' },
+        { id: '3', question: 'Mogu li koristiti ovu aplikaciju offline?', answer: 'Neke funkcionalnosti su dostupne offline, ali za puni radnu verziju potrebna je internetska veza.' },
+        { id: '4', question: 'Kako mogu kontaktirati podršku?', answer: 'Možete kontaktirati naš tim za podršku putem sekcije "Kontaktirajte nas" u aplikaciji.' },
+      ],
+      switchTo: 'Prebaci na Engleski',
+    },
+  };
+
+  const t = translations[language]; // Get current translations
 
   const renderFAQItem = ({ item }) => (
     <View style={styles.faqItem}>
@@ -21,12 +42,21 @@ export default function FAQScreen() {
       source={require('../assets/background.jpg')} 
       style={styles.container}
     >
-      <Text style={styles.title}>Frequently Asked Questions</Text>
+      <Text style={styles.title}>{t.title}</Text>
+      
       <FlatList
-        data={faqs}
+        data={t.faqs}
         keyExtractor={(item) => item.id}
         renderItem={renderFAQItem}
       />
+
+      {/* Language Switch Button */}
+      <TouchableOpacity
+        onPress={() => setLanguage(language === 'en' ? 'hrv' : 'en')}
+        style={styles.languageButton}
+      >
+        <Text style={styles.languageText}>{t.switchTo}</Text>
+      </TouchableOpacity>
     </ImageBackground>
   );
 }
@@ -60,5 +90,19 @@ const styles = StyleSheet.create({
   answer: {
     fontSize: 14,
     color: '#555',
+  },
+  languageButton: {
+    marginTop: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderColor: 'white',
+    borderWidth: 1,
+    borderRadius: 20,
+    alignItems: 'center',
+  },
+  languageText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
