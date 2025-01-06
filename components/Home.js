@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ImageBackground } from 'react-native';
 
-// Ensure the path is correct to the background image
 import background from '../assets/background.jpg';
 
 const Home = () => {
@@ -18,7 +17,10 @@ const Home = () => {
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Početak</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonOutline}>
+        <TouchableOpacity
+          style={styles.buttonOutline}
+          onPress={() => navigation.navigate('FAQ.js')} 
+        >
           <Text style={styles.buttonOutlineText}>Saznaj više</Text>
         </TouchableOpacity>
       </View>
@@ -36,22 +38,22 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#fff',  // Ensure title is white for visibility
+    color: '#fff',  
     marginBottom: 10,
     textAlign: 'center',
   },
   subtitle: {
     fontSize: 16,
-    color: '#fff',  // Make subtitle white as well for contrast
+    color: '#fff',  
     marginBottom: 30,
     textAlign: 'center',
     lineHeight: 22,
   },
   logo: {
-    width: 150, // Adjust to match your logo size
-    height: 150, // Adjust to match your logo size
+    width: 150, 
+    height: 150, 
     marginBottom: 30,
-    resizeMode: 'contain', // Keeps the aspect ratio of your logo
+    resizeMode: 'contain', 
   },
   buttonContainer: {
     width: '100%',

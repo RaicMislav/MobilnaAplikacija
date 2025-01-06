@@ -2,14 +2,11 @@ import React from 'react';
 import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 import { WebView } from 'react-native-webview';
 
-// Import background image
-import backgroundImage from '../assets/background.jpg';  // Update the path as needed
+import backgroundImage from '../assets/background.jpg';  
 
 const Karta = () => {
-  // Replace with your HERE API key
+
   const apiKey = 'fnAD8b722Z4MY5G3ttHBm_lRoIAWNfFwPQlCVR9QXdc';
-  
-  // URL for the map with the API key
   const mapUrl = `https://wego.here.com/?map=43.3436,17.8103,15&apikey=${apiKey}`;
 
   return (
@@ -41,11 +38,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: 'white',  // Make the text color stand out against the background
+    color: 'white',  
   },
   map: {
     width: '100%',
-    height: '60%',  // Adjust the size of the map
+    height: '60%', 
     marginTop: 20,
   },
 });

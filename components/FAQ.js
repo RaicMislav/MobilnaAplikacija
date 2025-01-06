@@ -18,7 +18,7 @@ export default function FAQScreen() {
 
   return (
     <ImageBackground
-      source={require('../assets/background.jpg')} // Path to your background image in assets
+      source={require('../assets/background.jpg')} 
       style={styles.container}
     >
       <Text style={styles.title}>Frequently Asked Questions</Text>
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
   faqItem: {
     padding: 15,
-    backgroundColor: 'rgba(255, 255, 255, 0.7)', // Semi-transparent white for better contrast
+    backgroundColor: 'rgba(255, 255, 255, 0.7)', 
     borderRadius: 8,
     marginBottom: 15,
     elevation: 3,

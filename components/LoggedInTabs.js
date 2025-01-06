@@ -21,7 +21,7 @@ const DrawerNavigator = () => {
 const TabNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Home" // Set Home as the initial tab screen
+      initialRouteName="Home" 
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color, size }) => {
           let iconName;
