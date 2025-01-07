@@ -4,6 +4,9 @@ import LoggedInTabs from "./components/LoggedInTabs";
 import LoggedOutView from "./components/LoggedOutView";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import Profile from "./components/Profile";
+import Postavke from "./components/Postavke";
+import ProfileButton from "./components/ProfileButton";
 
 const Stack = createStackNavigator();
 

@@ -11,6 +11,7 @@ import Kontakt from './Kontakt';
 import Novosti from './Novosti';
 import Profile from './Profile';
 import Postavke from './Postavke';
+import ProfileButton from './ProfileButton';
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -19,7 +20,11 @@ const TabNavigator = () => {
   return (
     <Tab.Navigator
       initialRouteName="Home" 
-      screenOptions={({ route }) => ({
+      screenOptions={({ route, navigation }) => ({
+        headerRight: () => <ProfileButton />,
+        headerRightContainerStyle: {
+          paddingRight: 16, 
+        },
         tabBarIcon: ({ color, size }) => {
           let iconName;
 
