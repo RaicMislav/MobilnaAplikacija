@@ -31,11 +31,11 @@ const Profile = () => {
     );
   };
 
-  // Custom Search Function for DropDownPicker
+  
   const customSearchFunction = (text) => {
     const searchText = text.toLowerCase();
     return countries.filter((item) =>
-      item.label.toLowerCase().startsWith(searchText) // Only matches the first letter
+      item.label.toLowerCase().startsWith(searchText) 
     );
   };
 
@@ -47,14 +47,14 @@ const Profile = () => {
           <View style={styles.infoContainer}>
             <Text style={styles.title}>Unesite svoje podatke</Text>
 
-            {/* Name and Surname Row */}
+            
             <View style={styles.rowContainer}>
               <View style={styles.inputContainerSmall}>
                 <Text style={styles.label}>Ime:</Text>
                 <TextInput
                   style={styles.input}
                   placeholder="Unesite ime"
-                  placeholderTextColor="#EAEAEA" // Light gray placeholder text
+                  placeholderTextColor="#EAEAEA" 
                   value={name}
                   onChangeText={setName}
                 />
@@ -64,27 +64,27 @@ const Profile = () => {
                 <TextInput
                   style={styles.input}
                   placeholder="Unesite prezime"
-                  placeholderTextColor="#EAEAEA" // Light gray placeholder text
+                  placeholderTextColor="#EAEAEA"
                   value={surname}
                   onChangeText={setSurname}
                 />
               </View>
             </View>
 
-            {/* Email Field */}
+            
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Email:</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Unesite email"
-                placeholderTextColor="#EAEAEA" // Light gray placeholder text
+                placeholderTextColor="#EAEAEA" 
                 keyboardType="email-address"
                 value={email}
                 onChangeText={setEmail}
               />
             </View>
 
-            {/* Country Dropdown */}
+            
             <View style={[styles.inputContainer, open && { zIndex: 999 }]}>
               <Text style={styles.label}>Država:</Text>
               <DropDownPicker
@@ -101,54 +101,54 @@ const Profile = () => {
                   autoCorrect: false,
                   spellCheck: false,
                   autoCapitalize: 'none',
-                  placeholderTextColor: '#EAEAEA', // Light gray placeholder in the search bar
+                  placeholderTextColor: '#EAEAEA', 
                 }}
-                searchFunction={customSearchFunction} // Custom search function
-                style={[styles.dropdown, country && styles.dropdownSelected]} // Change style if a country is selected
+                searchFunction={customSearchFunction} 
+                style={[styles.dropdown, country && styles.dropdownSelected]} 
                 dropDownContainerStyle={styles.dropdownContainer}
-                textStyle={styles.dropdownText} // Light gray dropdown text
-                placeholderStyle={styles.dropdownPlaceholder} // Style for placeholder
+                textStyle={styles.dropdownText} 
+                placeholderStyle={styles.dropdownPlaceholder} 
               />
             </View>
 
-            {/* Mobile Field */}
+            
             <View style={[styles.inputContainer, { zIndex: open ? -1 : 1 }]}>
               <Text style={styles.label}>Mobitel:</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Unesite broj mobitela"
-                placeholderTextColor="#EAEAEA" // Light gray placeholder text
+                placeholderTextColor="#EAEAEA" 
                 keyboardType="phone-pad"
                 value={mobile}
                 onChangeText={setMobile}
               />
             </View>
 
-            {/* Address Field */}
+            
             <View style={[styles.inputContainer, { zIndex: open ? -1 : 1 }]}>
               <Text style={styles.label}>Adresa:</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Unesite adresu"
-                placeholderTextColor="#EAEAEA" // Light gray placeholder text
+                placeholderTextColor="#EAEAEA" 
                 value={address}
                 onChangeText={setAddress}
               />
             </View>
 
-            {/* City Field */}
+            
             <View style={[styles.inputContainer, { zIndex: open ? -1 : 1 }]}>
               <Text style={styles.label}>Grad:</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Unesite grad"
-                placeholderTextColor="#EAEAEA" // Light gray placeholder text
+                placeholderTextColor="#EAEAEA" 
                 value={city}
                 onChangeText={setCity}
               />
             </View>
 
-            {/* Save Button */}
+            
             <TouchableOpacity style={styles.customButton} onPress={handleSave}>
               <Text style={styles.buttonText}>Save Changes</Text>
             </TouchableOpacity>
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#EAEAEA', // Light gray title text
+    color: '#EAEAEA', 
     textAlign: 'center',
     marginBottom: 30,
   },
@@ -208,35 +208,35 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#EAEAEA', // Light gray label text
+    color: '#EAEAEA', 
     marginBottom: 5,
   },
   input: {
     height: 45,
-    borderColor: '#EAEAEA', // Light gray border
+    borderColor: '#EAEAEA', 
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 15,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)', // Subtle white background
-    color: '#EAEAEA', // Light gray text
+    backgroundColor: 'rgba(255, 255, 255, 0.1)', 
+    color: '#EAEAEA', 
     fontSize: 14,
   },
   dropdown: {
-    borderColor: '#EAEAEA', // Light gray dropdown border
+    borderColor: '#EAEAEA', 
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
   },
   dropdownPlaceholder: {
-    color: '#EAEAEA', // Light gray placeholder for the dropdown
+    color: '#EAEAEA', 
   },
   dropdownText: {
-    color: '#EAEAEA', // Light gray text in dropdown
+    color: '#EAEAEA', 
   },
   dropdownContainer: {
     borderColor: '#EAEAEA',
-    backgroundColor: '#1A1A1A', // Darker background for dropdown container
+    backgroundColor: '#1A1A1A', 
   },
   customButton: {
-    backgroundColor: '#4CAF50', // Light gray button
+    backgroundColor: '#4CAF50', 
     paddingVertical: 14,
     paddingHorizontal: 35,
     borderRadius: 30,
@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
   },
   buttonText: {
-    color: '#1A1A1A', // Dark gray text for contrast on button
+    color: '#1A1A1A', 
     fontSize: 16,
     fontWeight: 'bold',
     textTransform: 'uppercase',
