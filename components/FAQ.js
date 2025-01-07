@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, ImageBackground, TouchableOpacity } from 'react-native';
+import { SettingsContext } from '../SettingsContext';
 
 export default function FAQScreen() {
-  const [language, setLanguage] = useState('en'); 
+  const { language } = useContext(SettingsContext); 
 
   const faqs = {
     en: [
@@ -19,10 +20,6 @@ export default function FAQScreen() {
     ],
   };
 
-  const toggleLanguage = () => {
-    setLanguage(language === 'en' ? 'hr' : 'en');
-  };
-
   const renderFAQItem = ({ item }) => (
     <View style={styles.faqItem}>
       <Text style={styles.question}>{item.question}</Text>
@@ -37,9 +34,6 @@ export default function FAQScreen() {
     >
       <View style={styles.header}>
         <Text style={styles.title}>FAQ</Text>
-        <TouchableOpacity onPress={toggleLanguage} style={styles.languageButton}>
-          <Text style={styles.languageText}>{language === 'en' ? 'EN' : 'HR'}</Text>
-        </TouchableOpacity>
       </View>
 
       <FlatList

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, ImageBackground, TouchableOpacity } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { View, Text, StyleSheet, FlatList, ImageBackground } from 'react-native';
+import { SettingsContext } from '../SettingsContext';
 
 const NovostiScreen = () => {
-  const [language, setLanguage] = useState('en'); 
+  const { language } = useContext(SettingsContext); 
 
   const newsData = {
     en: [
@@ -17,10 +18,6 @@ const NovostiScreen = () => {
       { id: '3', title: 'Važna nadogradnja na tečajevima', description: 'Novi tečajevi su dodani na platformu. Pogledajte ih sada!', date: '2025-01-04' },
       { id: '4', title: 'Aplikacija sada dostupna na više jezika', description: 'Sada možete prebaciti između engleskog i hrvatskog jezika u aplikaciji.', date: '2025-01-05' },
     ]
-  };
-
-  const toggleLanguage = () => {
-    setLanguage(language === 'en' ? 'hr' : 'en');
   };
 
   const renderNewsItem = ({ item }) => (
@@ -38,9 +35,6 @@ const NovostiScreen = () => {
     >
       <View style={styles.header}>
         <Text style={styles.title}>Novosti i Ažuriranja</Text>
-        <TouchableOpacity onPress={toggleLanguage} style={styles.languageButton}>
-          <Text style={styles.languageText}>{language === 'en' ? 'EN' : 'HR'}</Text>
-        </TouchableOpacity>
       </View>
 
       <FlatList

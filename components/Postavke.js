@@ -1,30 +1,25 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet, Switch, ImageBackground, TouchableOpacity } from 'react-native';
+import { SettingsContext } from '../SettingsContext';
 
 const Postavke = () => {
-  const [isEnabled, setIsEnabled] = useState(false);
-    const [language, setLanguage] = useState('en'); 
-
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-  const toggleLanguage = () => {
-    setLanguage(language === 'en' ? 'hr' : 'en');
-  };
+  const { isDarkMode, language, toggleDarkMode, changeLanguage } = useContext(SettingsContext);
 
   return (
-    <ImageBackground source={require('../assets/background.jpg')} style={styles.container}>
+    <ImageBackground source={require('../assets/background.jpg')} style={[styles.container, isDarkMode && styles.darkBackground]}>
       <Text style={styles.title}>Postavke</Text>
       <View style={styles.setting}>
         <Text style={styles.settingText}>Tamni način rada</Text>
         <Switch
           trackColor={{ false: "#767577", true: "#81b0ff" }}
-          thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-          onValueChange={toggleSwitch}
-          value={isEnabled}
+          thumbColor={isDarkMode ? "#f5dd4b" : "#f4f3f4"}
+          onValueChange={toggleDarkMode}
+          value={isDarkMode}
         />
       </View>
       <View style={styles.setting}>
         <Text style={styles.settingText}>Jezik</Text>
-      <TouchableOpacity onPress={toggleLanguage} style={styles.languageButton}>
+        <TouchableOpacity onPress={() => changeLanguage(language === 'en' ? 'hr' : 'en')} style={styles.languageButton}>
           <Text style={styles.languageText}>{language === 'en' ? 'EN' : 'HR'}</Text>
         </TouchableOpacity>
       </View>
@@ -37,6 +32,9 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: "#fff",
+  },
+  darkBackground: {
+    backgroundColor: "#333",
   },
   title: {
     fontSize: 24,
