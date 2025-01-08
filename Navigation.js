@@ -4,24 +4,39 @@ import LoggedInTabs from "./components/LoggedInTabs";
 import LoggedOutView from "./components/LoggedOutView";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import Profile from "./components/Profile";
-import Postavke from "./components/Postavke";
-import ProfileButton from "./components/ProfileButton";
+import StartScreen from "./components/StartScreen";
 
 const Stack = createStackNavigator();
 
 export default Navigation = () => {
     const { isLoggedIn } = useContext(AuthContext);
+
     return (
         <NavigationContainer>
-            <Stack.Navigator>
-                {
-                    isLoggedIn ? (
-                        <Stack.Screen name="Dobrodošli na sustav" component={LoggedInTabs} options={{ headerShown: false }} />
-                    ) : (
-                        <Stack.Screen name="Prijavite se na sustav" component={LoggedOutView} options={{ headerShown: false }} />
-                    )
-                }
+            <Stack.Navigator initialRouteName={isLoggedIn ? "LoggedIn" : "Start"}>
+                {/* Logged-in flow */}
+                {isLoggedIn ? (
+                    <Stack.Screen 
+                        name="LoggedIn" 
+                        component={LoggedInTabs} 
+                        options={{ headerShown: false }} 
+                    />
+                ) : (
+                    <>
+                        {/* Start Screen */}
+                        <Stack.Screen 
+                            name="Start" 
+                            component={StartScreen} 
+                            options={{ headerShown: false }} 
+                        />
+                        {/* Logged Out Screen */}
+                        <Stack.Screen 
+                            name="LoggedOutView" 
+                            component={LoggedOutView} 
+                            options={{ headerShown: false }} 
+                        />
+                    </>
+                )}
             </Stack.Navigator>
         </NavigationContainer>
     );
