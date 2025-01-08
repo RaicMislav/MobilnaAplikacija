@@ -9,7 +9,7 @@ const ProfileButton = () => {
   const { logout } = useContext(AuthContext);
   const navigation = useNavigation();
 
-  const emojis = ['😀'];
+  const emojis = [''];
 
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * emojis.length);
@@ -30,7 +30,7 @@ const ProfileButton = () => {
     <View style={styles.container}>
       
       <TouchableOpacity style={styles.profilePicture} onPress={toggleDropdown}>
-        <Text style={styles.profileText}>{emoji}</Text>
+        <Text style={styles.profileText}>MR</Text>
       </TouchableOpacity>
 
       
