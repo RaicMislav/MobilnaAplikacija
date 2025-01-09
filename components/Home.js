@@ -40,6 +40,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
+    width: '100%',
+    height: '100%',
   },
   title: {
     fontSize: 28,

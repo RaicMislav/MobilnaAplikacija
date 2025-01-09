@@ -1,39 +1,52 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ImageBackground } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, Image, ImageBackground, ActivityIndicator, Text, Dimensions } from 'react-native';
 
-const StartScreen = ( ) => {
+const { width, height } = Dimensions.get('window'); 
+
+const StartScreen = () => {
     const navigation = useNavigation();
-    const handleGetStarted = () => {
-        navigation.navigate('LoggedOutView');
-    };
+    const [isImageLoaded, setIsImageLoaded] = useState(false);
+
+    useEffect(() => {
+        
+        if (isImageLoaded) {
+            const timer = setTimeout(() => {
+                navigation.navigate('LoggedOutView'); 
+            }, 3000);
+
+            return () => clearTimeout(timer); 
+        }
+    }, [isImageLoaded, navigation]);
 
     return (
-        <ImageBackground 
-            source={require('../assets/background.jpg')} 
-            style={styles.background} 
+        <ImageBackground
+            source={require('../assets/background.jpg')}
+            style={styles.background}
             resizeMode="cover"
+            onLoadEnd={() => setIsImageLoaded(true)} 
         >
-            <View style={styles.container}>
-                
-                
-                <View style={styles.logoContainer}>
-                    <Image 
-                        source={require('../assets/logo.png')} 
-                        style={styles.logo} 
-                        resizeMode="contain" 
+            {isImageLoaded && (
+                <View style={styles.container}>
+                    
+                    <Image
+                        source={require('../assets/logo.png')}
+                        style={styles.logo}
+                        resizeMode="contain"
                     />
-                </View>
-
-                
-                <View style={styles.buttonWrapper}>
-                    <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.button} onPress={handleGetStarted}>
-                            <Text style={styles.buttonText}>Get Started</Text>
-                        </TouchableOpacity>
+                    
+                    <ActivityIndicator
+                        size="large"
+                        color="#ffffff" 
+                        style={styles.spinner}
+                    />
+                    
+                    <View style={styles.textContainer}>
+                        <Text style={styles.poweredText}>Powered by</Text>
+                        <Text style={styles.zbunjeniText}>zBunjeni</Text>
                     </View>
                 </View>
-            </View>
+            )}
         </ImageBackground>
     );
 };
@@ -41,40 +54,41 @@ const StartScreen = ( ) => {
 const styles = StyleSheet.create({
     background: {
         flex: 1,
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     container: {
         flex: 1,
-        flexDirection: 'row',
-    },
-    logoContainer: {
-        flex: 2, 
         justifyContent: 'center',
         alignItems: 'center',
     },
     logo: {
-        width: '80%', 
-        height: '50%',
+        width: width * 0.8, 
+        height: height * 0.25, 
+        marginBottom: 20, 
     },
-    buttonWrapper: {
-        flex: 1, 
-        justifyContent: 'center',
-        alignItems: 'flex-start', 
-        paddingLeft: 20, 
+    spinner: {
+        marginTop: 10, 
     },
-    buttonContainer: {
-        justifyContent: 'center',
+    textContainer: {
+        position: 'absolute',
+        bottom: height * 0.05, 
         alignItems: 'center',
     },
-    button: {
-        backgroundColor: '#007bff',
-        paddingVertical: 20, 
-        paddingHorizontal: 120, 
-        borderRadius: 12, 
+    poweredText: {
+        fontSize: 16, 
+        fontWeight: 'bold', 
+        color: '#ffffff', 
+        textAlign: 'center',
+        opacity: 0.8, 
     },
-    buttonText: {
-        color: '#fff',
-        fontSize: 20, 
-        fontWeight: 'bold',
+    zbunjeniText: {
+        fontSize: 18, 
+        fontWeight: 'bold', 
+        color: '#ffffff', 
+        textAlign: 'center',
     },
 });
 

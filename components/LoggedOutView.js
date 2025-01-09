@@ -52,7 +52,7 @@ export default function LoggedOutView() {
       resizeMode="stretch"
     >
       <View style={styles.container}>
-        {/* Add your logo here */}
+        
         <Image source={logo} style={styles.logo} />
 
         <Text style={styles.welcomeText}>Prijava na Aplikaciju</Text>
@@ -83,6 +83,8 @@ export default function LoggedOutView() {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
+    width: "100%",
+    height: "100%",
   },
   container: {
     flex: 1,
