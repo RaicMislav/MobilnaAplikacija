@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet, Switch, ImageBackground, TouchableOpacity } from 'react-native';
+import CountryFlag from "react-native-country-flag"; // Import the flag component
 import { SettingsContext } from '../SettingsContext';
 
 const Postavke = () => {
@@ -18,9 +19,13 @@ const Postavke = () => {
         />
       </View>
       <View style={styles.setting}>
-        <Text style={styles.settingText}>Jezik</Text>
+        {language === 'hrv' ?<Text style={styles.settingText}>Jezik</Text>:<Text style={styles.settingText}>Language</Text>}
         <TouchableOpacity onPress={() => changeLanguage(language === 'en' ? 'hr' : 'en')} style={styles.languageButton}>
-          <Text style={styles.languageText}>{language === 'en' ? 'EN' : 'HR'}</Text>
+          <View style={styles.flagContainer}>
+            {/* Show the flag based on the language */}
+            <CountryFlag isoCode={language === 'en' ? "gb" : "hr"} size={18} style={styles.flag} />
+            <Text style={styles.languageText}>{language === 'en' ? 'EN' : 'HR'}</Text>
+          </View>
         </TouchableOpacity>
       </View>
     </ImageBackground>
@@ -60,6 +65,13 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 30,
+  },
+  flagContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  flag: {
+    marginRight: 10, // Add space between the flag and text
   },
   languageText: {
     color: '#fff',

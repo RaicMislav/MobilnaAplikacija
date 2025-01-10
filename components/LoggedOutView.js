@@ -1,12 +1,10 @@
 import React, { useState, useContext } from "react";
-import { View, StyleSheet, Text, Image, ImageBackground } from "react-native";
-import LoginInput from "./ui/LoginInput";
-import LoginButton from "./ui/LoginButton";
-import ErrorMessage from "./ui/ErrorMessage";
+import { View, StyleSheet, Text, Image, ImageBackground, TextInput } from "react-native";
 import { AuthContext } from "../AuthContext";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebaseConfig";
-import logo from '../assets/logo.png';
+import Icon from "react-native-vector-icons/FontAwesome";
+import logo from "../assets/logo.png";
 
 export default function LoggedOutView() {
   const { login } = useContext(AuthContext);
@@ -47,34 +45,57 @@ export default function LoggedOutView() {
 
   return (
     <ImageBackground
-      source={require("../assets/background.jpg")} 
+      source={require("../assets/background.jpg")}
       style={styles.background}
       resizeMode="stretch"
     >
       <View style={styles.container}>
-        
         <Image source={logo} style={styles.logo} />
 
         <Text style={styles.welcomeText}>Prijava na Aplikaciju</Text>
 
-        <LoginInput
-          placeholder="Unesite vašu email adresu"
-          value={email}
-          secureTextEntry={false}
-          onChangeText={setEmail}
-          onSubmitEditing={() => passw !== "" && handleLogin()}
-        />
+        
+        <View style={styles.inputContainer}>
+          <Icon name="envelope" size={20} color="gray" style={styles.icon} />
+          <TextInput
+            placeholder="Unesite vašu email adresu"
+            value={email}
+            onChangeText={setEmail}
+            style={styles.input}
+            underlineColorAndroid="transparent" 
+            keyboardAppearance="light" 
+            returnKeyType="next" 
+            onSubmitEditing={() => {
+              
+              passwRef.focus();
+            }}
+          />
+        </View>
 
-        <LoginInput
-          placeholder="Unesite vašu lozinku"
-          secureTextEntry={true}
-          value={passw}
-          onChangeText={setPassw}
-          onSubmitEditing={handleLogin}
-        />
+        
+        <View style={styles.inputContainer}>
+          <Icon name="key" size={20} color="gray" style={styles.icon} />
+          <TextInput
+            ref={(input) => (passwRef = input)} 
+            placeholder="Unesite vašu lozinku"
+            value={passw}
+            onChangeText={setPassw}
+            secureTextEntry={true}
+            style={styles.input}
+            underlineColorAndroid="transparent" 
+            keyboardAppearance="light"
+            returnKeyType="done" 
+            onSubmitEditing={handleLogin} 
+          />
+        </View>
 
-        <ErrorMessage error={errorMsg} />
-        <LoginButton title="Prijava" onPress={handleLogin} />
+        
+        {errorMsg ? <Text style={styles.errorMsg}>{errorMsg}</Text> : null}
+
+        
+        <View style={styles.button} onTouchEnd={handleLogin}>
+          <Text style={styles.buttonText}>Prijava</Text>
+        </View>
       </View>
     </ImageBackground>
   );
@@ -93,9 +114,9 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   logo: {
-    width: 150, 
-    height: 150, 
-    marginBottom: 20, 
+    width: 150,
+    height: 150,
+    marginBottom: 20,
   },
   welcomeText: {
     fontSize: 24,
@@ -103,5 +124,48 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: "center",
     color: "white",
+  },
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "90%",
+    marginVertical: 10,
+    backgroundColor: "white",
+    borderColor: "gray",
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    height: 50,
+  },
+  icon: {
+    marginRight: 10,
+  },
+  input: {
+    flex: 1,
+    fontSize: 16,
+    color: "black",
+    padding: 0,
+    borderWidth: 0, 
+    outlineStyle: "none",
+  },
+
+  errorMsg: {
+    color: "red",
+    marginTop: 10,
+    fontSize: 14,
+  },
+  button: {
+    width: "90%",
+    backgroundColor: "blue",
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    height: 50,
+    marginTop: 20,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });

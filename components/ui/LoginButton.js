@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "blue",
         borderRadius: 5,
-        width: width > 700 ? '25%' : width > 500 ? '35%' : '50%',    
+        width: width > 700 ? '50%' : width > 500 ? '65%' : '80%',     
         marginVertical: 5,
     },
     buttonText: {
