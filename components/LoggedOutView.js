@@ -1,16 +1,18 @@
 import React, { useState, useContext } from "react";
-import { View, StyleSheet, Text, Image, ImageBackground, TextInput } from "react-native";
+import { View, StyleSheet, Text, Image, ImageBackground, TextInput, TouchableOpacity } from "react-native";
 import { AuthContext } from "../AuthContext";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 import Icon from "react-native-vector-icons/FontAwesome";
 import logo from "../assets/logo.png";
+import { SettingsContext } from "../SettingsContext";
 
 export default function LoggedOutView() {
   const { login } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [passw, setPassw] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const { theme } = useContext(SettingsContext)
 
   const isValidEmail = (email) => {
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -93,9 +95,9 @@ export default function LoggedOutView() {
         {errorMsg ? <Text style={styles.errorMsg}>{errorMsg}</Text> : null}
 
         
-        <View style={styles.button} onTouchEnd={handleLogin}>
-          <Text style={styles.buttonText}>Prijava</Text>
-        </View>
+        <TouchableOpacity style={[styles.button, { backgroundColor: theme.buttonBackground }]} onPress={handleLogin}>
+          <Text style={[styles.buttonText, { color: theme.buttonText }]}>Prijava</Text>
+        </TouchableOpacity>
       </View>
     </ImageBackground>
   );

@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, StyleSheet, Image, ImageBackground, ScrollView, TextInput, TouchableOpacity, Alert } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { SettingsContext } from '../SettingsContext';
 
 const Profile = () => {
+  const { theme, translate } = useContext(SettingsContext)
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
@@ -45,7 +47,7 @@ const Profile = () => {
         <View style={styles.profileContainer}>
           <Image source={require('../assets/logo.png')} style={styles.logo} />
           <View style={styles.infoContainer}>
-            <Text style={styles.title}>Unesite svoje podatke</Text>
+            <Text style={styles.title}>{translate("Unesite svoje podatke")}</Text>
 
             
             <View style={styles.rowContainer}>
@@ -149,8 +151,8 @@ const Profile = () => {
             </View>
 
             
-            <TouchableOpacity style={styles.customButton} onPress={handleSave}>
-              <Text style={styles.buttonText}>Save Changes</Text>
+            <TouchableOpacity  style={[styles.customButton, { backgroundColor: theme.buttonBackground }]} onPress={handleSave}>
+              <Text  style={[styles.buttonText, { color: theme.buttonText }]}>Save Changes</Text>
             </TouchableOpacity>
           </View>
         </View>

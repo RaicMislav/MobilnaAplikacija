@@ -5,12 +5,13 @@ import { SettingsContext } from '../SettingsContext';
 
 const Postavke = () => {
   const { isDarkMode, language, toggleDarkMode, changeLanguage } = useContext(SettingsContext);
+  const { theme } = useContext(SettingsContext);
 
   return (
     <ImageBackground source={require('../assets/background.jpg')} style={[styles.container, isDarkMode && styles.darkBackground]}>
-      <Text style={styles.title}>Postavke</Text>
+      <Text style={[styles.title, { color: theme.text }]}>Postavke</Text>
       <View style={styles.setting}>
-        <Text style={styles.settingText}>Tamni način rada</Text>
+        <Text style={[styles.settingText, { color: theme.text }]}>Tamni način rada</Text>
         <Switch
           trackColor={{ false: "#767577", true: "#81b0ff" }}
           thumbColor={isDarkMode ? "#f5dd4b" : "#f4f3f4"}
@@ -19,12 +20,12 @@ const Postavke = () => {
         />
       </View>
       <View style={styles.setting}>
-        {language === 'hrv' ?<Text style={styles.settingText}>Jezik</Text>:<Text style={styles.settingText}>Language</Text>}
-        <TouchableOpacity onPress={() => changeLanguage(language === 'en' ? 'hr' : 'en')} style={styles.languageButton}>
+        {language === 'hr' ?<Text style={[styles.settingText, { color: theme.text }]}>Jezik</Text>:<Text style={[styles.settingText, { color: theme.text }]}>Language</Text>}
+        <TouchableOpacity onPress={() => changeLanguage(language === 'en' ? 'hr' : 'en')} style={[styles.languageButton, { backgroundColor: theme.buttonBackground }]}>
           <View style={styles.flagContainer}>
             {/* Show the flag based on the language */}
             <CountryFlag isoCode={language === 'en' ? "gb" : "hr"} size={18} style={styles.flag} />
-            <Text style={styles.languageText}>{language === 'en' ? 'EN' : 'HR'}</Text>
+            <Text style={[styles.languageText, { color: theme.buttonText }]}>{language === 'en' ? 'EN' : 'HR'}</Text>
           </View>
         </TouchableOpacity>
       </View>

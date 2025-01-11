@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import background from '../assets/background.jpg';
+import { SettingsContext } from '../SettingsContext';
 
 const Home = () => {
   const navigation = useNavigation();
+    const { translate, theme } = useContext(SettingsContext)
 
   return (
     <ImageBackground source={background} style={styles.container} resizeMode="cover">
-      <Text style={styles.title}>Dobrodošli na našu FSRE Aplikaciju</Text>
-      <Text style={styles.subtitle}>Platforma za olakšanu navigaciju kroz studij.</Text>
+      <Text style={[styles.title, { color: theme.text }]}>{translate("Dobrodošli na našu FSRE Aplikaciju")}</Text>
+      <Text style={[styles.subtitle, { color: theme.text }]}>{translate("Platforma za olakšanu navigaciju kroz studij.")}</Text>
 
       {/* Logo */}
       <Image source={require('../assets/logo.png')} style={styles.logo} />
@@ -18,16 +20,16 @@ const Home = () => {
       {/* Buttons */}
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('Novosti')} 
-        >
-          <Text style={styles.buttonText}>Početak</Text>
+        style={[styles.button, { backgroundColor: theme.buttonBackground }]}
+        onPress={() => navigation.navigate('Novosti')} 
+      >
+          <Text style={[styles.buttonText, { color: theme.buttonText }]}>{translate("Početak")}</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.buttonOutline}
+            style={[styles.buttonOutline, { backgroundColor: theme.buttonBackground }]}
           onPress={() => navigation.navigate('FAQ')}
         >
-          <Text style={styles.buttonOutlineText}>Saznaj više</Text>
+          <Text style={[styles.buttonOutlineText, { color: theme.buttonText }]}>{translate("Saznaj više")}</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>

@@ -2,10 +2,13 @@ import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 import { AuthContext } from '../AuthContext'; 
 import { useNavigation } from '@react-navigation/native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { SettingsContext } from '../SettingsContext';
 
 const ProfileButton = () => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [emoji, setEmoji] = useState('👋');
+  const { translate } = useContext(SettingsContext);
   const { logout } = useContext(AuthContext);
   const navigation = useNavigation();
 
@@ -21,19 +24,17 @@ const ProfileButton = () => {
   };
 
   const dropdownOptions = [
-    { label: 'Profile', action: () => navigation.navigate('Profil') },
-    { label: 'Settings', action: () => navigation.navigate('Postavke') },
-    { label: 'Logout', action: logout }, //Poziv loggout funkcije
+    { label: translate('Profil'), icon: 'person', action: () => navigation.navigate('Profil') },
+    { label: translate('Postavke'), icon: 'settings', action: () => navigation.navigate('Postavke') },
+    { label: translate('Odjava'), icon: 'logout', action: logout },
   ];
 
   return (
     <View style={styles.container}>
-      
       <TouchableOpacity style={styles.profilePicture} onPress={toggleDropdown}>
         <Text style={styles.profileText}>MR</Text>
       </TouchableOpacity>
 
-      
       {isDropdownVisible && (
         <View style={styles.dropdown}>
           <FlatList
@@ -47,7 +48,10 @@ const ProfileButton = () => {
                   setDropdownVisible(false); 
                 }}
               >
-                <Text style={styles.dropdownText}>{item.label}</Text>
+                <View style={styles.dropdownItemContent}>
+                  <MaterialIcons name={item.icon} size={20} color="#333" style={styles.dropdownIcon} />
+                  <Text style={styles.dropdownText}>{item.label}</Text>
+                </View>
               </TouchableOpacity>
             )}
           />
@@ -92,6 +96,13 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#f1f1f1',
+  },
+  dropdownItemContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  dropdownIcon: {
+    marginRight: 10,
   },
   dropdownText: {
     fontSize: 16,
