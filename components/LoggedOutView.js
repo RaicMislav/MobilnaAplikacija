@@ -1,48 +1,54 @@
 import React, { useState, useContext } from "react";
 import { View, StyleSheet, Text, Image, ImageBackground, TextInput, TouchableOpacity } from "react-native";
 import { AuthContext } from "../AuthContext";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebaseConfig";
 import Icon from "react-native-vector-icons/FontAwesome";
 import logo from "../assets/logo.png";
 import { SettingsContext } from "../SettingsContext";
+import { supabase } from "../supabaseConfig";
 
 export default function LoggedOutView() {
   const { login } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [passw, setPassw] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const { theme } = useContext(SettingsContext)
+  const { theme } = useContext(SettingsContext);
 
   const isValidEmail = (email) => {
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return regex.test(email);
   };
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!isValidEmail(email)) {
       setErrorMsg("Please enter a valid email address.");
       return;
     }
-    signInWithEmailAndPassword(auth, email, passw)
-      .then(() => {
-        login();
-      })
-      .catch((error) => {
-        let errorMessage = "Something went wrong. Please try again.";
 
-        if (error.code === "auth/invalid-email") {
-          errorMessage = "Please enter a valid email address.";
-        } else if (error.code === "auth/wrong-password") {
-          errorMessage = "Incorrect password. Please try again.";
-        } else if (error.code === "auth/user-not-found") {
-          errorMessage = "No account found with this email.";
-        } else if (error.code === "auth/invalid-credential") {
-          errorMessage = "Invalid credentials. Please check your information.";
-        }
-
-        setErrorMsg(errorMessage);
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password: passw,
       });
+
+      if (error) {
+        throw error;
+      }
+
+      // On successful login, call the login function from AuthContext
+      login();
+    } catch (error) {
+      let errorMessage = "Something went wrong. Please try again.";
+
+      if (error.message.includes("invalid_email")) {
+        errorMessage = "Please enter a valid email address.";
+      } else if (error.message.includes("incorrect_password")) {
+        errorMessage = "Incorrect password. Please try again.";
+      } else if (error.message.includes("user_not_found")) {
+        errorMessage = "No account found with this email.";
+      }
+
+      setErrorMsg(errorMessage);
+    }
   };
 
   return (
@@ -56,7 +62,6 @@ export default function LoggedOutView() {
 
         <Text style={styles.welcomeText}>Prijava na Aplikaciju</Text>
 
-        
         <View style={styles.inputContainer}>
           <Icon name="envelope" size={20} color="gray" style={styles.icon} />
           <TextInput
@@ -64,38 +69,37 @@ export default function LoggedOutView() {
             value={email}
             onChangeText={setEmail}
             style={styles.input}
-            underlineColorAndroid="transparent" 
-            keyboardAppearance="light" 
-            returnKeyType="next" 
+            underlineColorAndroid="transparent"
+            keyboardAppearance="light"
+            returnKeyType="next"
             onSubmitEditing={() => {
-              
               passwRef.focus();
             }}
           />
         </View>
 
-        
         <View style={styles.inputContainer}>
           <Icon name="key" size={20} color="gray" style={styles.icon} />
           <TextInput
-            ref={(input) => (passwRef = input)} 
+            ref={(input) => (passwRef = input)}
             placeholder="Unesite vašu lozinku"
             value={passw}
             onChangeText={setPassw}
             secureTextEntry={true}
             style={styles.input}
-            underlineColorAndroid="transparent" 
+            underlineColorAndroid="transparent"
             keyboardAppearance="light"
-            returnKeyType="done" 
-            onSubmitEditing={handleLogin} 
+            returnKeyType="done"
+            onSubmitEditing={handleLogin}
           />
         </View>
 
-        
         {errorMsg ? <Text style={styles.errorMsg}>{errorMsg}</Text> : null}
 
-        
-        <TouchableOpacity style={[styles.button, { backgroundColor: theme.buttonBackground }]} onPress={handleLogin}>
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: theme.buttonBackground }]}
+          onPress={handleLogin}
+        >
           <Text style={[styles.buttonText, { color: theme.buttonText }]}>Prijava</Text>
         </TouchableOpacity>
       </View>
@@ -147,10 +151,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "black",
     padding: 0,
-    borderWidth: 0, 
+    borderWidth: 0,
     outlineStyle: "none",
   },
-
   errorMsg: {
     color: "red",
     marginTop: 10,
