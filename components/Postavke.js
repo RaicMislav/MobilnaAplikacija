@@ -4,14 +4,13 @@ import CountryFlag from "react-native-country-flag"; // Import the flag componen
 import { SettingsContext } from '../SettingsContext';
 
 const Postavke = () => {
-  const { isDarkMode, language, toggleDarkMode, changeLanguage } = useContext(SettingsContext);
-  const { theme } = useContext(SettingsContext);
+  const { isDarkMode, language, toggleDarkMode, changeLanguage, getBackgroundImage, translate, theme } = useContext(SettingsContext);
 
   return (
-    <ImageBackground source={require('../assets/background.jpg')} style={[styles.container, isDarkMode && styles.darkBackground]}>
-      <Text style={[styles.title, { color: theme.text }]}>Postavke</Text>
+    <ImageBackground source={getBackgroundImage()} style={[styles.container, isDarkMode && styles.darkBackground]}>
+      <Text style={[styles.title, { color: theme.text }]}>{translate("Postavke")}</Text>
       <View style={styles.setting}>
-        <Text style={[styles.settingText, { color: theme.text }]}>Tamni način rada</Text>
+        <Text style={[styles.settingText, { color: theme.text }]}>{translate("Tamni način rada")}</Text>
         <Switch
           trackColor={{ false: "#767577", true: "#81b0ff" }}
           thumbColor={isDarkMode ? "#f5dd4b" : "#f4f3f4"}
@@ -20,12 +19,12 @@ const Postavke = () => {
         />
       </View>
       <View style={styles.setting}>
-        {language === 'hr' ?<Text style={[styles.settingText, { color: theme.text }]}>Jezik</Text>:<Text style={[styles.settingText, { color: theme.text }]}>Language</Text>}
-        <TouchableOpacity onPress={() => changeLanguage(language === 'en' ? 'hr' : 'en')} style={[styles.languageButton, { backgroundColor: theme.buttonBackground }]}>
+        <Text style={[styles.settingText, { color: theme.text }]}>{translate("Jezik")}</Text>
+        <TouchableOpacity onPress={() => changeLanguage(language === 'en' ? 'hr' : 'en')} style={styles.languageButton}>
           <View style={styles.flagContainer}>
             {/* Show the flag based on the language */}
             <CountryFlag isoCode={language === 'en' ? "gb" : "hr"} size={18} style={styles.flag} />
-            <Text style={[styles.languageText, { color: theme.buttonText }]}>{language === 'en' ? 'EN' : 'HR'}</Text>
+            <Text style={styles.languageText}>{language === 'en' ? 'EN' : 'HR'}</Text>
           </View>
         </TouchableOpacity>
       </View>

@@ -1,12 +1,14 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, StyleSheet, Image, ImageBackground, ActivityIndicator, Text, Dimensions } from 'react-native';
+import { SettingsContext } from '../SettingsContext';
 
 const { width, height } = Dimensions.get('window'); 
 
 const StartScreen = () => {
     const navigation = useNavigation();
     const [isImageLoaded, setIsImageLoaded] = useState(false);
+    const { theme, getBackgroundImage, getLogo } = useContext(SettingsContext);
 
     useEffect(() => {
         
@@ -21,7 +23,7 @@ const StartScreen = () => {
 
     return (
         <ImageBackground
-            source={require('../assets/background.jpg')}
+            source={getBackgroundImage()}
             style={styles.background}
             resizeMode="cover"
             onLoadEnd={() => setIsImageLoaded(true)} 
@@ -30,7 +32,7 @@ const StartScreen = () => {
                 <View style={styles.container}>
                     
                     <Image
-                        source={require('../assets/logo.png')}
+                        source={getLogo()}
                         style={styles.logo}
                         resizeMode="contain"
                     />
@@ -42,8 +44,8 @@ const StartScreen = () => {
                     />
                     
                     <View style={styles.textContainer}>
-                        <Text style={styles.poweredText}>Powered by</Text>
-                        <Text style={styles.zbunjeniText}>zBunjeni</Text>
+                        <Text style={[styles.poweredText, { color: theme.text }]}>Powered by</Text>
+                        <Text style={[styles.zbunjeniText, { color: theme.text }]}>zBunjeni</Text>
                     </View>
                 </View>
             )}

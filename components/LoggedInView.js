@@ -2,15 +2,14 @@ import React, { useContext } from "react";
 import { View, Text, StyleSheet, ImageBackground } from "react-native";
 import { AuthContext } from "../AuthContext";
 import LoginButton from "./ui/LoginButton";
-import backgroundImage from '../assets/background.jpg';  
 
 export default function LoggedInView() {
-  const { logout } = useContext(AuthContext);
+  const { logout, getBackgroundImage } = useContext(AuthContext);
 
   return (
-    <ImageBackground source={backgroundImage} style={styles.container}>
+    <ImageBackground source={getBackgroundImage()} style={styles.container}>
       <View style={styles.contentContainer}>
-        <Text style={styles.text}>Dobrodošli na sustav</Text>
+        <Text style={[styles.text, { color: theme.text }]}>Dobrodošli na sustav</Text>
 
         {/* Logout Button */}
         <LoginButton title="Odjavi se" onPress={logout} />

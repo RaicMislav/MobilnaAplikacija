@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, FlatList, ImageBackground, TouchableOpacity } f
 import { SettingsContext } from '../SettingsContext';
 
 export default function FAQScreen() {
-  const { language } = useContext(SettingsContext); 
+  const { language, getBackgroundImage, theme } = useContext(SettingsContext); 
 
   const faqs = {
     en: [
@@ -22,18 +22,18 @@ export default function FAQScreen() {
 
   const renderFAQItem = ({ item }) => (
     <View style={styles.faqItem}>
-      <Text style={styles.question}>{item.question}</Text>
-      <Text style={styles.answer}>{item.answer}</Text>
+      <Text style={[styles.question, { color: theme.text }]}>{item.question}</Text>
+      <Text style={[styles.answer, { color: theme.text }]}>{item.answer}</Text>
     </View>
   );
 
   return (
     <ImageBackground
-      source={require('../assets/background.jpg')}
+      source={getBackgroundImage()}
       style={styles.container}
     >
       <View style={styles.header}>
-        <Text style={styles.title}>FAQ</Text>
+        <Text style={[styles.title, { color: theme.text }]}>FAQ</Text>
       </View>
 
       <FlatList

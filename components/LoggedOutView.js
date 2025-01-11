@@ -12,7 +12,7 @@ export default function LoggedOutView() {
   const [email, setEmail] = useState("");
   const [passw, setPassw] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const { theme } = useContext(SettingsContext)
+  const { theme, translate, getBackgroundImage, getLogo } = useContext(SettingsContext)
 
   const isValidEmail = (email) => {
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -47,14 +47,14 @@ export default function LoggedOutView() {
 
   return (
     <ImageBackground
-      source={require("../assets/background.jpg")}
+      source={getBackgroundImage()}
       style={styles.background}
       resizeMode="stretch"
     >
       <View style={styles.container}>
-        <Image source={logo} style={styles.logo} />
+        <Image source={getLogo()} style={styles.logo} />
 
-        <Text style={styles.welcomeText}>Prijava na Aplikaciju</Text>
+        <Text style={[styles.welcomeText, { color: theme.text }]}>Prijava na Aplikaciju</Text>
 
         
         <View style={styles.inputContainer}>
@@ -95,7 +95,7 @@ export default function LoggedOutView() {
         {errorMsg ? <Text style={styles.errorMsg}>{errorMsg}</Text> : null}
 
         
-        <TouchableOpacity style={[styles.button, { backgroundColor: theme.buttonBackground }]} onPress={handleLogin}>
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={[styles.buttonText, { color: theme.buttonText }]}>Prijava</Text>
         </TouchableOpacity>
       </View>

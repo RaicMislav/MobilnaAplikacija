@@ -11,16 +11,16 @@ const DrawerInfo = () => {
 
       <View style={styles.infoContainer}>
         {/* Placeholder for student's name */}
-        <Text style={styles.name}>Student Name</Text>
+        <Text style={[styles.name, { color: theme.text }]}>Student Name</Text>
         
         {/* Placeholder for student's age */}
-        <Text style={styles.info}>Age: 20</Text>
+        <Text style={[styles.info, { color: theme.text }]}>Age: 20</Text>
         
         {/* Placeholder for student's major */}
-        <Text style={styles.info}>Major: Computer Science</Text>
+        <Text style={[styles.info, { color: theme.text }]}>Major: Computer Science</Text>
         
         {/* Placeholder for student's bio */}
-        <Text style={styles.bio}>This is a placeholder for the student's bio.</Text>
+        <Text style={[styles.bio, { color: theme.text }]}>This is a placeholder for the student's bio.</Text>
       </View>
     </ScrollView>
   );

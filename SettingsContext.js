@@ -4,6 +4,12 @@ import { translations } from "./translations";
 
 export const SettingsContext = createContext();
 
+import backgroundDark from "./assets/background.jpg";
+import backgroundLight from "./assets/backgroundlight.jpg";
+
+import logoDark from "./assets/logo.png";
+import logoLight from "./assets/logoblack.png";
+
 export const SettingsProvider = ({ children }) => {
     const [isDarkMode, setIsDarkMode] = useState(true);
     const [language, setLanguage] = useState("en");
@@ -17,6 +23,14 @@ export const SettingsProvider = ({ children }) => {
         return translations[language]?.[key] || key;
     };
 
+    const getBackgroundImage = () => {
+        return isDarkMode ? backgroundDark : backgroundLight;
+    };
+
+    const getLogo = () => {
+        return isDarkMode ? logoDark : logoLight;
+    };
+
     return (
         <SettingsContext.Provider
             value={{
@@ -26,6 +40,8 @@ export const SettingsProvider = ({ children }) => {
                 changeLanguage,
                 theme,
                 translate,
+                getBackgroundImage,
+                getLogo
             }}
         >
             {children}

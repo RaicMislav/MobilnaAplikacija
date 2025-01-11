@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';  
+import { SettingsContext } from '../SettingsContext';
 
 export default function KontaktScreen() {
   const navigation = useNavigation(); 
+
+  const { translate, theme, getBackgroundImage } = useContext(SettingsContext)
 
   const contactItems = [
     { id: '1', label: 'Adresa', value: 'Matice hrvatske b.b., 88000 Mostar, Bosna i Hercegovina' },
@@ -24,7 +27,7 @@ export default function KontaktScreen() {
 
   const renderContactItem = ({ item }) => (
     <View style={styles.contactItem}>
-      <Text style={styles.label}>{item.label}</Text>
+      <Text style={[styles.label, { color: theme.text }]}>{item.label}</Text>
       <TouchableOpacity onPress={() => handleAction(item.action, item.value)}>
         <Text style={styles.value}>{item.value}</Text>
       </TouchableOpacity>
@@ -33,10 +36,10 @@ export default function KontaktScreen() {
 
   return (
     <ImageBackground
-      source={require('../assets/background.jpg')}
+      source={getBackgroundImage()}
       style={styles.container}
     >
-      <Text style={styles.title}>Kontaktirajte nas</Text>
+      <Text style={[styles.title, { color: theme.text }]}>Kontaktirajte nas</Text>
 
       <FlatList
         data={contactItems}
@@ -46,7 +49,7 @@ export default function KontaktScreen() {
       />
 
       <View style={styles.socialMediaBox}>
-        <Text style={styles.subtitle}>Pratite nas na društvenim mrežama</Text>
+        <Text style={[styles.subtitle, { color: theme.text }]}>Pratite nas na društvenim mrežama</Text>
         <View style={styles.socialLinks}>
           <TouchableOpacity style={styles.socialLink} onPress={() => Linking.openURL('https://www.facebook.com/fsre.mostar')}>
             <Text style={styles.socialText}>Facebook</Text>

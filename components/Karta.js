@@ -1,18 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 import { WebView } from 'react-native-webview';
-
-import backgroundImage from '../assets/background.jpg';  
+import { SettingsContext } from '../SettingsContext';
 
 const Karta = () => {
 
   const apiKey = 'fnAD8b722Z4MY5G3ttHBm_lRoIAWNfFwPQlCVR9QXdc';
   const mapUrl = `https://wego.here.com/?map=43.3436,17.8103,15&apikey=${apiKey}`;
 
+  const { translate, theme, getBackgroundImage } = useContext(SettingsContext)
+
   return (
-    <ImageBackground source={backgroundImage} style={styles.container}>
+    <ImageBackground source={getBackgroundImage()} style={styles.container}>
       <View style={styles.contentContainer}>
-        <Text style={styles.title}>Dobrodošli u Karte</Text>
+        <Text style={[styles.title, { color: theme.text }]}>Dobrodošli u Karte</Text>
         <WebView
           originWhitelist={['*']}
           source={{ uri: mapUrl }}

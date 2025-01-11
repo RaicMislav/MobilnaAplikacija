@@ -4,7 +4,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { SettingsContext } from '../SettingsContext';
 
 const Profile = () => {
-  const { theme, translate } = useContext(SettingsContext)
+  const { theme, translate, getBackgroundImage, getLogo } = useContext(SettingsContext)
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
@@ -42,17 +42,17 @@ const Profile = () => {
   };
 
   return (
-    <ImageBackground source={require('../assets/background.jpg')} style={styles.background}>
+    <ImageBackground source={getBackgroundImage()} style={styles.background}>
       <ScrollView contentContainerStyle={styles.container} nestedScrollEnabled={true}>
         <View style={styles.profileContainer}>
-          <Image source={require('../assets/logo.png')} style={styles.logo} />
+          <Image source={getLogo()} style={styles.logo} />
           <View style={styles.infoContainer}>
-            <Text style={styles.title}>{translate("Unesite svoje podatke")}</Text>
+            <Text style={[styles.title, { color: theme.text }]}>{translate("Unesite svoje podatke")}</Text>
 
             
             <View style={styles.rowContainer}>
               <View style={styles.inputContainerSmall}>
-                <Text style={styles.label}>Ime:</Text>
+                <Text style={[styles.label, { color: theme.text }]}>Ime:</Text>
                 <TextInput
                   style={styles.input}
                   placeholder="Unesite ime"
@@ -62,7 +62,7 @@ const Profile = () => {
                 />
               </View>
               <View style={styles.inputContainerSmall}>
-                <Text style={styles.label}>Prezime:</Text>
+                <Text style={[styles.label, { color: theme.text }]}>Prezime:</Text>
                 <TextInput
                   style={styles.input}
                   placeholder="Unesite prezime"
@@ -75,7 +75,7 @@ const Profile = () => {
 
             
             <View style={styles.inputContainer}>
-              <Text style={styles.label}>Email:</Text>
+              <Text style={[styles.label, { color: theme.text }]}>Email:</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Unesite email"
@@ -88,7 +88,7 @@ const Profile = () => {
 
             
             <View style={[styles.inputContainer, open && { zIndex: 999 }]}>
-              <Text style={styles.label}>Država:</Text>
+              <Text style={[styles.label, { color: theme.text }]}>Država:</Text>
               <DropDownPicker
                 open={open}
                 value={country}
@@ -115,7 +115,7 @@ const Profile = () => {
 
             
             <View style={[styles.inputContainer, { zIndex: open ? -1 : 1 }]}>
-              <Text style={styles.label}>Mobitel:</Text>
+              <Text style={[styles.label, { color: theme.text }]}>Mobitel:</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Unesite broj mobitela"
@@ -128,7 +128,7 @@ const Profile = () => {
 
             
             <View style={[styles.inputContainer, { zIndex: open ? -1 : 1 }]}>
-              <Text style={styles.label}>Adresa:</Text>
+              <Text style={[styles.label, { color: theme.text }]}>Adresa:</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Unesite adresu"
@@ -140,7 +140,7 @@ const Profile = () => {
 
             
             <View style={[styles.inputContainer, { zIndex: open ? -1 : 1 }]}>
-              <Text style={styles.label}>Grad:</Text>
+              <Text style={[styles.label, { color: theme.text }]}>Grad:</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Unesite grad"
@@ -151,8 +151,8 @@ const Profile = () => {
             </View>
 
             
-            <TouchableOpacity  style={[styles.customButton, { backgroundColor: theme.buttonBackground }]} onPress={handleSave}>
-              <Text  style={[styles.buttonText, { color: theme.buttonText }]}>Save Changes</Text>
+            <TouchableOpacity  style={styles.customButton} onPress={handleSave}>
+              <Text  style={styles.buttonText}>Save Changes</Text>
             </TouchableOpacity>
           </View>
         </View>

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, FlatList, ImageBackground } from 'react-native'
 import { SettingsContext } from '../SettingsContext';
 
 const NovostiScreen = () => {
-  const { language } = useContext(SettingsContext); 
+  const { language, getBackgroundImage, theme } = useContext(SettingsContext); 
 
   const newsData = {
     en: [
@@ -22,19 +22,19 @@ const NovostiScreen = () => {
 
   const renderNewsItem = ({ item }) => (
     <View style={styles.newsItem}>
-      <Text style={styles.newsTitle}>{item.title}</Text>
-      <Text style={styles.newsDate}>{item.date}</Text>
-      <Text style={styles.newsDescription}>{item.description}</Text>
+      <Text style={[styles.newsTitle, { color: theme.text }]}>{item.title}</Text>
+      <Text style={[styles.newsDate, { color: theme.text }]}>{item.date}</Text>
+      <Text style={[styles.newsDescription, { color: theme.text }]}>{item.description}</Text>
     </View>
   );
 
   return (
     <ImageBackground
-      source={require('../assets/background.jpg')} 
+      source={getBackgroundImage()} 
       style={styles.container}
     >
       <View style={styles.header}>
-        <Text style={styles.title}>Novosti i Ažuriranja</Text>
+        <Text style={[styles.title, { color: theme.text }]}>Novosti i Ažuriranja</Text>
       </View>
 
       <FlatList
