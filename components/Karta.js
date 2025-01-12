@@ -1,28 +1,55 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ImageBackground } from 'react-native';
-import { WebView } from 'react-native-webview';
-import { SettingsContext } from '../SettingsContext';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 const Karta = () => {
+  const [mapLoaded, setMapLoaded] = useState(false);
 
-  const apiKey = 'fnAD8b722Z4MY5G3ttHBm_lRoIAWNfFwPQlCVR9QXdc';
-  const mapUrl = `https://wego.here.com/?map=43.3436,17.8103,15&apikey=${apiKey}`;
+  const mapStyles = {
+    width: '100%',
+    height: '80%', // Povećana visina mape
+  };
 
-  const { translate, theme, getBackgroundImage } = useContext(SettingsContext)
+  // Lokacija Sveučilišta u Mostaru
+  const initialCenter = {
+    lat: 43.3445, // Latitude
+    lng: 17.7980, // Longitude
+  };
+
+  useEffect(() => {
+    setMapLoaded(true); // Kada se komponenta učita, postaviti mapu kao učitanu
+  }, []);
 
   return (
-    <ImageBackground source={getBackgroundImage()} style={styles.container}>
+    <ImageBackground
+      source={require('../assets/background.jpg')} // Zamijenite vašom pozadinskom slikom
+      style={styles.container}
+    >
       <View style={styles.contentContainer}>
-        <Text style={[styles.title, { color: theme.text }]}>Dobrodošli u Karte</Text>
-        <WebView
-          originWhitelist={['*']}
-          source={{ uri: mapUrl }}
-          style={styles.map}
-        />
+        <Text style={styles.title}>Dobrodošli u Google Karte</Text>
+        <View style={styles.mapContainer}>
+          {mapLoaded ? (
+            <LoadScript googleMapsApiKey="AIzaSyBwsDiKGcVtGZJo11d5-eXwnr02q2UmtXo">
+              <GoogleMap
+                mapContainerStyle={mapStyles}
+                center={initialCenter}
+                zoom={15}
+                onLoad={() => console.log("Mapa je učitana")}
+                onError={(error) => console.error("Greška pri učitavanju mape:", error)}
+              >
+                <Marker position={initialCenter} />
+              </GoogleMap>
+            </LoadScript>
+          ) : (
+            <Text>Učitavanje mape...</Text>
+          )}
+        </View>
       </View>
     </ImageBackground>
   );
 };
+
+export default Karta;
 
 const styles = StyleSheet.create({
   container: {
@@ -34,20 +61,20 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start', // Podesi poravnanje sadržaja prema vrhu
     alignItems: 'center',
     padding: 20,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: 'white',  
+    color: 'white',
+    marginBottom: 50, // Povećaj razmak između naslova i mape
   },
-  map: {
+  mapContainer: {
     width: '100%',
-    height: '60%', 
-    marginTop: 20,
+    height: '100%', // Povećana visina mape
+    borderRadius: 10,
+    overflow: 'hidden',
   },
 });
-
-export default Karta;
