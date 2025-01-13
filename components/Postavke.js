@@ -35,7 +35,6 @@ const Postavke = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     backgroundColor: "#fff",
     width: "100%",
     height: "100%",
