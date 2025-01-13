@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
   contactItem: {
     padding: 15,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    backgroundColor: '#2E2E2E',
     borderRadius: 10,
     marginBottom: 20,
     elevation: 3,
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   socialMediaContainer: {
-    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+    backgroundColor: '#2E2E2E',
     padding: 20,
     borderRadius: 15,
     alignItems: 'center',
@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: 'white',
   },
   socialIcons: {
     flexDirection: 'row',

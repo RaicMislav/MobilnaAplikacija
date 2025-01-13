@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   },
   faqItem: {
     padding: 15,
-    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    backgroundColor: '#2E2E2E',
     borderRadius: 8,
     marginBottom: 15,
     elevation: 3,

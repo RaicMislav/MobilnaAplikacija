@@ -73,15 +73,15 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   newsItem: {
-    backgroundColor: 'rgba(255, 255, 255, 0.7)', // Similar to FAQ item styling
+    backgroundColor: '#2E2E2E', // Dark gray background
     padding: 15,
     marginBottom: 15,
     borderRadius: 8,
     elevation: 3,
-    marginHorizontal: 20,
+    marginHorizontal: 20, // Adjust margin for the news items
   },
   newsTitle: {
-    fontSize: 20,
+    fontSize: 16, // Similar to FAQ item title
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 5,
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   newsDescription: {
-    fontSize: 16,
+    fontSize: 14, // Matching font size with FAQ answer
     color: '#555',
   },
 });
