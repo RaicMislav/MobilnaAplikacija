@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { SettingsContext } from '../SettingsContext';
 
 const Home = () => {
@@ -9,31 +8,30 @@ const Home = () => {
   const { translate, theme, getBackgroundImage, getLogo } = useContext(SettingsContext);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'transparent' }}>
-      <ImageBackground source={getBackgroundImage()} style={styles.container} resizeMode="cover">
-        <Text style={[styles.title, { color: theme.text }]}>{translate("Dobrodošli na našu FSRE Aplikaciju")}</Text>
-        <Text style={[styles.subtitle, { color: theme.text }]}>{translate("Platforma za olakšanu navigaciju kroz studij.")}</Text>
+    <ImageBackground source={getBackgroundImage()} style={styles.container} resizeMode="cover">
+      {/* Removed SafeAreaView to see if it’s causing issues */}
+      <Text style={[styles.title, { color: theme.text }]}>{translate("Dobrodošli na našu FSRE Aplikaciju")}</Text>
+      <Text style={[styles.subtitle, { color: theme.text }]}>{translate("Platforma za olakšanu navigaciju kroz studij.")}</Text>
 
-        {/* Logo */}
-        <Image source={getLogo()} style={styles.logo} />
+      {/* Logo */}
+      <Image source={getLogo()} style={styles.logo} />
 
-        {/* Buttons */}
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate('Novosti')}
-          >
-            <Text style={styles.buttonText}>{translate("Početak")}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.buttonOutline}
-            onPress={() => navigation.navigate('FAQ')}
-          >
-            <Text style={[styles.buttonOutlineText, { color: theme.buttonText }]}>{translate("Saznaj više")}</Text>
-          </TouchableOpacity>
-        </View>
-      </ImageBackground>
-    </SafeAreaView>
+      {/* Buttons */}
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('Novosti')}
+        >
+          <Text style={styles.buttonText}>{translate("Početak")}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonOutline}
+          onPress={() => navigation.navigate('FAQ')}
+        >
+          <Text style={[styles.buttonOutlineText, { color: theme.buttonText }]}>{translate("Saznaj više")}</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 };
 
@@ -42,6 +40,8 @@ const styles = StyleSheet.create({
     flex: 1, // Full screen
     justifyContent: 'center',
     alignItems: 'center',
+    width: '100%',  // Ensures ImageBackground takes full width
+    height: '100%', // Ensures ImageBackground takes full height
   },
   title: {
     fontSize: 28,
