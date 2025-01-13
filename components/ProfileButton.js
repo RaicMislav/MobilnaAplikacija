@@ -68,19 +68,20 @@ const styles = StyleSheet.create({
     position: 'relative', 
   },
   profilePicture: {
-    width: 50,
-    height: 50,
-    backgroundColor: '#f1f1f1',
-    borderRadius: 25,
+    width: 40, // Smaller size
+    height: 40, // Smaller size
+    backgroundColor: '#000080', // Dark blue background
+    borderRadius: 20, // Half of the width/height for a perfect circle
     justifyContent: 'center',
     alignItems: 'center',
   },
   profileText: {
-    fontSize: 16,
+    fontSize: 14, // Adjusted for smaller size
+    color: '#fff', // White text for better contrast
   },
   dropdown: {
     position: 'absolute',
-    top: 60,
+    top: 50, // Adjusted for smaller button
     right: 0,
     backgroundColor: 'white',
     borderRadius: 8,

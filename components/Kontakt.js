@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, ImageBackground, Linking, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, ImageBackground, Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SettingsContext } from '../SettingsContext';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -35,45 +35,38 @@ export default function KontaktScreen() {
   );
 
   return (
-    <ImageBackground
-      source={getBackgroundImage()}
-      style={styles.container}
-    >
-      <View style={styles.content}>
-        {/* Scrollable Section */}
-        <ScrollView contentContainerStyle={styles.scrollContent}>
+    <ImageBackground source={getBackgroundImage()} style={styles.container}>
+      <FlatList
+        data={contactItems}
+        keyExtractor={(item) => item.id}
+        renderItem={renderContactItem}
+        contentContainerStyle={styles.contactList}
+        ListHeaderComponent={() => (
           <Text style={[styles.title, { color: theme.text }]}>Kontaktirajte nas</Text>
-
-          <FlatList
-            data={contactItems}
-            keyExtractor={(item) => item.id}
-            renderItem={renderContactItem}
-            contentContainerStyle={styles.contactList}
-          />
-        </ScrollView>
-
-        {/* Fixed Social Media Section */}
-        <View style={styles.socialMediaContainer}>
-          <Text style={styles.socialMediaText}>Zapratite nas na:</Text>
-          <View style={styles.socialIcons}>
-            <TouchableOpacity onPress={() => Linking.openURL('https://www.facebook.com/fsre.mostar')}>
-              <Icon name="facebook-square" size={40} color="#3b5998" />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => Linking.openURL('https://fsre.sum.ba')}>
-              <Icon name="globe" size={40} color="#007bff" />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => Linking.openURL('https://www.instagram.com/fsre.sum/?hl=en')}>
-              <Icon name="instagram" size={40} color="#C13584" />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => Linking.openURL('https://www.youtube.com/@fsre-sum')}>
-              <Icon name="youtube-play" size={40} color="#FF0000" />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => Linking.openURL('https://ba.linkedin.com/school/fsre-sum/')}>
-              <Icon name="linkedin-square" size={40} color="#0077b5" />
-            </TouchableOpacity>
+        )}
+        ListFooterComponent={() => (
+          <View style={styles.socialMediaContainer}>
+            <Text style={styles.socialMediaText}>Zapratite nas na:</Text>
+            <View style={styles.socialIcons}>
+              <TouchableOpacity onPress={() => Linking.openURL('https://www.facebook.com/fsre.mostar')}>
+                <Icon name="facebook-square" size={40} color="#3b5998" />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => Linking.openURL('https://fsre.sum.ba')}>
+                <Icon name="globe" size={40} color="#007bff" />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => Linking.openURL('https://www.instagram.com/fsre.sum/?hl=en')}>
+                <Icon name="instagram" size={40} color="#C13584" />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => Linking.openURL('https://www.youtube.com/@fsre-sum')}>
+                <Icon name="youtube-play" size={40} color="#FF0000" />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => Linking.openURL('https://ba.linkedin.com/school/fsre-sum/')}>
+                <Icon name="linkedin-square" size={40} color="#0077b5" />
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      </View>
+        )}
+      />
     </ImageBackground>
   );
 }
@@ -84,32 +77,14 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  content: {
-    flex: 1,
-  },
-  scrollContent: {
-    padding: 20,
-    paddingTop: 2,
-    paddingBottom: 3,
-  },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#fff',
     textAlign: 'center',
-    marginBottom: 20,
+    marginVertical: 20,
   },
-  label: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 5,
-  },
-  value: {
-    fontSize: 16,
-    color: '#007bff',
-    marginBottom: 15,
-    textDecorationLine: 'underline',
+  contactList: {
+    paddingHorizontal: 20,
   },
   contactItem: {
     padding: 15,
@@ -118,34 +93,31 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     elevation: 3,
   },
-  contactList: {
-    flexGrow: 1,
+  label: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  value: {
+    fontSize: 16,
+    color: '#007bff',
+    textDecorationLine: 'underline',
   },
   socialMediaContainer: {
     backgroundColor: 'rgba(255, 255, 255, 0.95)',
-    paddingVertical: 20,
-    paddingHorizontal: 20,
+    padding: 20,
     borderRadius: 15,
     alignItems: 'center',
-    elevation: 5,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    marginHorizontal: 20,
-    marginBottom: 20,
+    marginVertical: 20,
   },
   socialMediaText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333',
     marginBottom: 10,
-    textAlign: 'center',
   },
   socialIcons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '80%',
-    flexWrap: 'wrap', // Allows icons to wrap if needed
   },
 });
