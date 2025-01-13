@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, ImageBackground, TouchableOpacity } from 'react-native';
+import React, { useContext } from 'react';
+import { View, Text, StyleSheet, FlatList, ImageBackground, SafeAreaView } from 'react-native';
 import { SettingsContext } from '../SettingsContext';
 
 export default function FAQScreen() {
-  const { language, getBackgroundImage, theme } = useContext(SettingsContext); 
+  const { language, getBackgroundImage, theme } = useContext(SettingsContext);
 
   const faqs = {
     en: [
@@ -28,55 +28,46 @@ export default function FAQScreen() {
   );
 
   return (
-    <ImageBackground
-      source={getBackgroundImage()}
-      style={styles.container}
-    >
-      <View style={styles.header}>
-        <Text style={[styles.title, { color: theme.text }]}>FAQ</Text>
-      </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <ImageBackground
+        source={getBackgroundImage()}
+        style={styles.container}
+      >
+        <View style={styles.header}>
+          <Text style={[styles.title, { color: theme.text }]}>FAQ</Text>
+        </View>
 
-      <FlatList
-        data={faqs[language]} 
-        keyExtractor={(item) => item.id}
-        renderItem={renderFAQItem}
-        contentContainerStyle={styles.newsList}
-      />
-    </ImageBackground>
+        <FlatList
+          data={faqs[language]} 
+          keyExtractor={(item) => item.id}
+          renderItem={renderFAQItem}
+          contentContainerStyle={styles.newsList}
+        />
+      </ImageBackground>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
     flex: 1,
     justifyContent: 'flex-start',
     width: '100%',
     height: '100%',
+    
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 30,
+    paddingHorizontal: 20,  // Add some padding to the header
+    marginTop: 20,
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
     color: '#fff',
-  },
-  languageButton: {
-    backgroundColor: 'navy',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  languageText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
   },
   faqItem: {
     padding: 15,
@@ -84,6 +75,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 15,
     elevation: 3,
+    marginHorizontal: 20, // Adjust margin for the FAQ items
   },
   question: {
     fontSize: 16,

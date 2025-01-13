@@ -1,47 +1,47 @@
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { SettingsContext } from '../SettingsContext';
 
 const Home = () => {
   const navigation = useNavigation();
-    const { translate, theme, getBackgroundImage, getLogo } = useContext(SettingsContext)
+  const { translate, theme, getBackgroundImage, getLogo } = useContext(SettingsContext);
 
   return (
-    <ImageBackground source={getBackgroundImage()} style={styles.container} resizeMode="cover">
-      <Text style={[styles.title, { color: theme.text }]}>{translate("Dobrodošli na našu FSRE Aplikaciju")}</Text>
-      <Text style={[styles.subtitle, { color: theme.text }]}>{translate("Platforma za olakšanu navigaciju kroz studij.")}</Text>
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'transparent' }}>
+      <ImageBackground source={getBackgroundImage()} style={styles.container} resizeMode="cover">
+        <Text style={[styles.title, { color: theme.text }]}>{translate("Dobrodošli na našu FSRE Aplikaciju")}</Text>
+        <Text style={[styles.subtitle, { color: theme.text }]}>{translate("Platforma za olakšanu navigaciju kroz studij.")}</Text>
 
-      {/* Logo */}
-      <Image source={getLogo()} style={styles.logo} />
+        {/* Logo */}
+        <Image source={getLogo()} style={styles.logo} />
 
-      {/* Buttons */}
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('Novosti')} 
-      >
-          <Text style={styles.buttonText}>{translate("Početak")}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+        {/* Buttons */}
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('Novosti')}
+          >
+            <Text style={styles.buttonText}>{translate("Početak")}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
             style={styles.buttonOutline}
-          onPress={() => navigation.navigate('FAQ')}
-        >
-          <Text style={[styles.buttonOutlineText, { color: theme.buttonText }]}>{translate("Saznaj više")}</Text>
-        </TouchableOpacity>
-      </View>
-    </ImageBackground>
+            onPress={() => navigation.navigate('FAQ')}
+          >
+            <Text style={[styles.buttonOutlineText, { color: theme.buttonText }]}>{translate("Saznaj više")}</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1, // Full screen
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
-    width: '100%',
-    height: '100%',
   },
   title: {
     fontSize: 28,

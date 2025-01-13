@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, ImageBackground } from 'react-native';
+import React, { useContext } from 'react';
+import { View, Text, StyleSheet, FlatList, ImageBackground, SafeAreaView } from 'react-native';
 import { SettingsContext } from '../SettingsContext';
 
 const NovostiScreen = () => {
-  const { language, getBackgroundImage, theme } = useContext(SettingsContext); 
+  const { language, getBackgroundImage, theme } = useContext(SettingsContext);
 
   const newsData = {
     en: [
@@ -29,63 +29,56 @@ const NovostiScreen = () => {
   );
 
   return (
-    <ImageBackground
-      source={getBackgroundImage()} 
-      style={styles.container}
-    >
-      <View style={styles.header}>
-        <Text style={[styles.title, { color: theme.text }]}>Novosti i Ažuriranja</Text>
-      </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <ImageBackground
+        source={getBackgroundImage()}
+        style={styles.container}
+      >
+        <View style={styles.header}>
+          <Text style={[styles.title, { color: theme.text }]}>Novosti i Ažuriranja</Text>
+        </View>
 
-      <FlatList
-        data={newsData[language]} 
-        keyExtractor={(item) => item.id}
-        renderItem={renderNewsItem}
-        contentContainerStyle={styles.newsList}
-      />
-    </ImageBackground>
+        <FlatList
+          data={newsData[language]} 
+          keyExtractor={(item) => item.id}
+          renderItem={renderNewsItem}
+          contentContainerStyle={styles.newsList}
+        />
+      </ImageBackground>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     justifyContent: 'flex-start',
     width: '100%',
-    height: '100%', 
+    height: '100%',
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between', 
-    alignItems: 'center', 
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 20, // Added top margin to space from the top
     marginBottom: 30,
+    paddingHorizontal: 20, // Padding to match the FAQ header
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
     color: '#fff',
   },
-  languageButton: {
-    backgroundColor: 'navy',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 30,
-  },
-  languageText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
   newsList: {
     flexGrow: 1,
   },
   newsItem: {
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    padding: 20,
-    marginBottom: 20,
-    borderRadius: 10,
+    backgroundColor: 'rgba(255, 255, 255, 0.7)', // Similar to FAQ item styling
+    padding: 15,
+    marginBottom: 15,
+    borderRadius: 8,
     elevation: 3,
+    marginHorizontal: 20,
   },
   newsTitle: {
     fontSize: 20,
