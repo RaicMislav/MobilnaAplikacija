@@ -12,7 +12,7 @@ import logoLight from "./assets/logoblack.png";
 
 export const SettingsProvider = ({ children }) => {
     const [isDarkMode, setIsDarkMode] = useState(true);
-    const [language, setLanguage] = useState("en");
+    const [language, setLanguage] = useState("hr");
 
     const toggleDarkMode = () => setIsDarkMode((prevMode) => !prevMode);
     const changeLanguage = (lang) => setLanguage(lang);

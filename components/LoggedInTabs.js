@@ -11,6 +11,7 @@ import Profile from './Profile';
 import Postavke from './Postavke';
 import ProfileButton from './ProfileButton';
 import { SettingsContext } from '../SettingsContext'; // Import SettingsContext
+import { StatusBar } from 'react-native'; // Import StatusBar to handle top status bar
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -49,7 +50,14 @@ const TabNavigator = () => {
         tabBarStyle: {
           backgroundColor: isDarkMode ? '#333333' : '#f5f5f5', // Background color for tab bar based on mode
           borderTopWidth: 0, // Optional: Remove the top border of the tab bar
+          paddingBottom: 0, // Remove bottom padding
+          marginBottom: 0,  // Remove bottom margin
         },
+        // Customizing the header for each screen inside TabNavigator
+        headerStyle: {
+          backgroundColor: isDarkMode ? '#333' : '#fff', // Header background color based on theme
+        },
+        headerTintColor: isDarkMode ? '#fff' : '#333', // Header text color based on theme
       })}
     >
       <Tab.Screen name="Home" component={Home} />
