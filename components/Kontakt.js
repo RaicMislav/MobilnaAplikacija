@@ -54,7 +54,7 @@ export default function KontaktScreen() {
 
         {/* Fixed Social Media Section */}
         <View style={styles.socialMediaContainer}>
-          <Text style={styles.socialMediaText}>Zaprati te nas na:</Text>
+          <Text style={styles.socialMediaText}>Zapratite nas na:</Text>
           <View style={styles.socialIcons}>
             <TouchableOpacity onPress={() => Linking.openURL('https://www.facebook.com/fsre.mostar')}>
               <Icon name="facebook-square" size={40} color="#3b5998" />
