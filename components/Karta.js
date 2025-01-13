@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { SettingsContext } from '../SettingsContext';
 
 const Karta = () => {
   const [mapLoaded, setMapLoaded] = useState(false);
+  const { translate, theme, getBackgroundImage } = useContext(SettingsContext);
 
   const mapStyles = {
     width: '100%',
@@ -12,8 +14,8 @@ const Karta = () => {
 
   // Lokacija Sveučilišta u Mostaru
   const initialCenter = {
-    lat: 43.3445, // Latitude
-    lng: 17.7980, // Longitude
+    lat: 43.34592, // Latitude
+    lng: 17.79660, // Longitude
   };
 
   useEffect(() => {
@@ -22,11 +24,11 @@ const Karta = () => {
 
   return (
     <ImageBackground
-      source={require('../assets/background.jpg')} // Zamijenite vašom pozadinskom slikom
+      source={getBackgroundImage()}
       style={styles.container}
     >
       <View style={styles.contentContainer}>
-        <Text style={styles.title}>Dobrodošli u Google Karte</Text>
+        <Text style={[styles.title, { color: theme.text }]}>Dobrodosli u Google Karte</Text>
         <View style={styles.mapContainer}>
           {mapLoaded ? (
             <LoadScript googleMapsApiKey="AIzaSyBwsDiKGcVtGZJo11d5-eXwnr02q2UmtXo">
