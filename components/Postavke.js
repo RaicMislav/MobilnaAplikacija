@@ -8,25 +8,28 @@ const Postavke = () => {
 
   return (
     <ImageBackground source={getBackgroundImage()} style={[styles.container, isDarkMode && styles.darkBackground]}>
-      <Text style={[styles.title, { color: theme.text }]}>{translate("Postavke")}</Text>
-      <View style={styles.setting}>
-        <Text style={[styles.settingText, { color: theme.text }]}>{translate("Tamni način rada")}</Text>
-        <Switch
-          trackColor={{ false: "#767577", true: "#81b0ff" }}
-          thumbColor={isDarkMode ? "#f5dd4b" : "#f4f3f4"}
-          onValueChange={toggleDarkMode}
-          value={isDarkMode}
-        />
-      </View>
-      <View style={styles.setting}>
-        <Text style={[styles.settingText, { color: theme.text }]}>{translate("Jezik")}</Text>
-        <TouchableOpacity onPress={() => changeLanguage(language === 'en' ? 'hr' : 'en')} style={styles.languageButton}>
-          <View style={styles.flagContainer}>
-            {/* Show the flag based on the language */}
-            <CountryFlag isoCode={language === 'en' ? "gb" : "hr"} size={18} style={styles.flag} />
-            <Text style={styles.languageText}>{language === 'en' ? 'EN' : 'HR'}</Text>
-          </View>
-        </TouchableOpacity>
+      <View style={styles.content}>
+        <Text style={[styles.title, { color: theme.text }]}>{translate("Postavke")}</Text>
+
+        <View style={styles.setting}>
+          <Text style={[styles.settingText, { color: theme.text }]}>{translate("Tamni način rada")}</Text>
+          <Switch
+            trackColor={{ false: "#767577", true: "#81b0ff" }}
+            thumbColor={isDarkMode ? "#f5dd4b" : "#f4f3f4"}
+            onValueChange={toggleDarkMode}
+            value={isDarkMode}
+          />
+        </View>
+
+        <View style={styles.setting}>
+          <Text style={[styles.settingText, { color: theme.text }]}>{translate("Jezik")}</Text>
+          <TouchableOpacity onPress={() => changeLanguage(language === 'en' ? 'hr' : 'en')} style={styles.languageButton}>
+            <View style={styles.flagContainer}>
+              <CountryFlag isoCode={language === 'en' ? "gb" : "hr"} size={18} style={styles.flag} />
+              <Text style={styles.languageText}>{language === 'en' ? 'EN' : 'HR'}</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
     </ImageBackground>
   );
@@ -42,10 +45,15 @@ const styles = StyleSheet.create({
   darkBackground: {
     backgroundColor: "#333",
   },
+  content: {
+    flex: 0, // This prevents the content from taking up unnecessary space
+    marginTop: 30, // Moves the content up
+    paddingHorizontal: 20, // Keeps space on the sides
+  },
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 20,
+    marginBottom: 30, // Space between title and settings
     textAlign: "center",
     color: "#fff",
   },
@@ -54,6 +62,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginVertical: 15,
+    paddingHorizontal: 10, // Horizontal padding for settings items
   },
   settingText: {
     fontSize: 18,
@@ -70,7 +79,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   flag: {
-    marginRight: 10, // Add space between the flag and text
+    marginRight: 10, // Adds space between flag and text
   },
   languageText: {
     color: '#fff',
