@@ -9,9 +9,15 @@ const Home = () => {
 
   return (
     <ImageBackground source={getBackgroundImage()} style={styles.container} resizeMode="cover">
-      {/* Removed SafeAreaView to see if it’s causing issues */}
-      <Text style={[styles.title, { color: theme.text }]}>{translate("Dobrodošli na našu FSRE Aplikaciju")}</Text>
-      <Text style={[styles.subtitle, { color: theme.text }]}>{translate("Platforma za olakšanu navigaciju kroz studij.")}</Text>
+      {/* Title and Subtitle */}
+      <View style={styles.textContainer}>
+        <Text style={[styles.title, { color: theme.text }]}>
+          {translate("Dobrodošli na našu FSRE Aplikaciju")}
+        </Text>
+        <Text style={[styles.subtitle, { color: theme.text }]}>
+          {translate("Platforma za olakšanu navigaciju kroz studij.")}
+        </Text>
+      </View>
 
       {/* Logo */}
       <Image source={getLogo()} style={styles.logo} />
@@ -28,7 +34,9 @@ const Home = () => {
           style={styles.buttonOutline}
           onPress={() => navigation.navigate('FAQ')}
         >
-          <Text style={[styles.buttonOutlineText, { color: theme.buttonText }]}>{translate("Saznaj više")}</Text>
+          <Text style={[styles.buttonOutlineText, { color: theme.buttonText }]}>
+            {translate("Saznaj više")}
+          </Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
@@ -40,8 +48,13 @@ const styles = StyleSheet.create({
     flex: 1, // Full screen
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',  // Ensures ImageBackground takes full width
+    width: '100%', // Ensures ImageBackground takes full width
     height: '100%', // Ensures ImageBackground takes full height
+  },
+  textContainer: {
+    paddingHorizontal: 20, // Adds padding to keep text away from edges
+    alignItems: 'center',
+    marginBottom: 30, // Adds space between text and logo
   },
   title: {
     fontSize: 28,
@@ -53,7 +66,6 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 16,
     color: '#fff',
-    marginBottom: 30,
     textAlign: 'center',
     lineHeight: 22,
   },

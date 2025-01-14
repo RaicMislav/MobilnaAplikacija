@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, ImageBackground, Linking } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, ImageBackground, Linking, Dimensions, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SettingsContext } from '../SettingsContext';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -7,6 +7,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 export default function KontaktScreen() {
   const navigation = useNavigation();
   const { translate, theme, getBackgroundImage } = useContext(SettingsContext);
+
+  const { height, width } = Dimensions.get('window'); // Get screen dimensions
 
   const contactItems = [
     { id: '1', label: 'Adresa', value: 'Matice hrvatske b.b., 88000 Mostar, Bosna i Hercegovina' },
@@ -36,37 +38,45 @@ export default function KontaktScreen() {
 
   return (
     <ImageBackground source={getBackgroundImage()} style={styles.container}>
+      {/* Contact List */}
       <FlatList
         data={contactItems}
         keyExtractor={(item) => item.id}
         renderItem={renderContactItem}
         contentContainerStyle={styles.contactList}
+        showsVerticalScrollIndicator={false} // Remove scroll indicator
+        scrollEnabled={false} // Disable scrolling
         ListHeaderComponent={() => (
           <Text style={[styles.title, { color: theme.text }]}>Kontaktirajte nas</Text>
         )}
-        ListFooterComponent={() => (
-          <View style={styles.socialMediaContainer}>
-            <Text style={styles.socialMediaText}>Zapratite nas na:</Text>
-            <View style={styles.socialIcons}>
-              <TouchableOpacity onPress={() => Linking.openURL('https://www.facebook.com/fsre.mostar')}>
-                <Icon name="facebook-square" size={40} color="#3b5998" />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => Linking.openURL('https://fsre.sum.ba')}>
-                <Icon name="globe" size={40} color="#007bff" />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => Linking.openURL('https://www.instagram.com/fsre.sum/?hl=en')}>
-                <Icon name="instagram" size={40} color="#C13584" />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => Linking.openURL('https://www.youtube.com/@fsre-sum')}>
-                <Icon name="youtube-play" size={40} color="#FF0000" />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => Linking.openURL('https://ba.linkedin.com/school/fsre-sum/')}>
-                <Icon name="linkedin-square" size={40} color="#0077b5" />
-              </TouchableOpacity>
-            </View>
-          </View>
-        )}
       />
+
+      {/* Fixed Social Media Box */}
+      <View
+        style={[
+          styles.socialMediaContainer,
+          { bottom: Platform.OS === 'ios' || width < 480 ? 40 : 20 }, // Adjust position for mobile
+        ]}
+      >
+        <Text style={styles.socialMediaText}>Zapratite nas na:</Text>
+        <View style={styles.socialIcons}>
+          <TouchableOpacity onPress={() => Linking.openURL('https://www.facebook.com/fsre.mostar')}>
+            <Icon name="facebook-square" size={40} color="#3b5998" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => Linking.openURL('https://fsre.sum.ba')}>
+            <Icon name="globe" size={40} color="#007bff" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => Linking.openURL('https://www.instagram.com/fsre.sum/?hl=en')}>
+            <Icon name="instagram" size={40} color="#C13584" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => Linking.openURL('https://www.youtube.com/@fsre-sum')}>
+            <Icon name="youtube-play" size={40} color="#FF0000" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => Linking.openURL('https://ba.linkedin.com/school/fsre-sum/')}>
+            <Icon name="linkedin-square" size={40} color="#0077b5" />
+          </TouchableOpacity>
+        </View>
+      </View>
     </ImageBackground>
   );
 }
@@ -85,6 +95,7 @@ const styles = StyleSheet.create({
   },
   contactList: {
     paddingHorizontal: 20,
+    paddingBottom: 160, // Ensures proper spacing above the social media box
   },
   contactItem: {
     padding: 15,
@@ -104,11 +115,14 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   socialMediaContainer: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
     backgroundColor: '#2E2E2E',
     padding: 20,
     borderRadius: 15,
     alignItems: 'center',
-    marginVertical: 20,
+    marginHorizontal: 20, // Adds horizontal spacing
   },
   socialMediaText: {
     fontSize: 18,
