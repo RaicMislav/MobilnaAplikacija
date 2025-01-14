@@ -44,7 +44,14 @@ const Profile = () => {
     <ImageBackground source={getBackgroundImage()} style={styles.background}>
       <ScrollView contentContainerStyle={styles.container} nestedScrollEnabled={true}>
         <View style={styles.profileContainer}>
+        <View style={styles.imageContainer}>
           <Image source={getLogo()} style={styles.logo} />
+          <View style={styles.imageBoxContainer}>
+            <Image 
+              source={require('../assets/unknown_user_icon.jpg')} 
+              style={styles.userImage} 
+            />
+          </View> </View>
           <View style={styles.infoContainer}>
             <Text style={[styles.title, { color: theme.text }]}>{translate("Unesite svoje podatke")}</Text>
 
@@ -265,7 +272,17 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   
-  // New styles for the green button with plus sign
+  imageContainer: {
+    display: 'flex',
+    flexDirection : 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    
+  },
+  imageBoxContainer: {
+    marginBottom: 20,
+    alignItems: 'center',
+  },
   addButtonContainer: {
     position: 'absolute',
     bottom: 30, 
@@ -286,6 +303,13 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  userImage: {
+    width: 150,
+    height: 150,
+    borderRadius: "50%",
+    resizeMode: 'cover',
+    marginBottom: 20,
   },
 });
 
