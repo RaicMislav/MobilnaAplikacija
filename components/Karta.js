@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, StyleSheet, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, PermissionsAndroid, Platform } from 'react-native';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import Geolocation from 'react-native-geolocation-service';
 import { SettingsContext } from '../SettingsContext';
 
 const Karta = () => {
   const [mapLoaded, setMapLoaded] = useState(false);
+  const [location, setLocation] = useState(null);
   const { translate, theme, getBackgroundImage } = useContext(SettingsContext);
 
   const mapStyles = {
@@ -12,15 +14,54 @@ const Karta = () => {
     height: '100%', 
   };
 
-  // Lokacija Sveučilišta u Mostaru
   const initialCenter = {
-    lat: 43.34592, // Latitude
-    lng: 17.79660, // Longitude
+    lat: 43.34592, 
+    lng: 17.79660, 
   };
 
   useEffect(() => {
-    setMapLoaded(true); 
+    setMapLoaded(true);
+    requestLocationPermission();
   }, []);
+
+  async function requestLocationPermission() {
+    if (Platform.OS === 'android') {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          {
+            title: "Location Permission",
+            message: "This app needs access to your location."
+          }
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          getCurrentLocation();
+        } else {
+          console.log("Location permission denied");
+        }
+      } catch (err) {
+        console.warn(err);
+      }
+    } else {
+      getCurrentLocation();
+    }
+  }
+
+  function getCurrentLocation() {
+    Geolocation.getCurrentPosition(
+      (position) => {
+        console.log("Current Position:", position);
+        setLocation({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+      },
+      (error) => {
+        console.log("Error getting location:", error.code, error.message);
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+    );
+  }
 
   return (
     <ImageBackground
@@ -28,7 +69,7 @@ const Karta = () => {
       style={styles.container}
     >
       <View style={styles.contentContainer}>
-        <Text style={[styles.title, { color: theme.text }]}></Text>
+        <Text style={[styles.title, { color: theme.text }]}>Mapa</Text>
         <View style={styles.mapContainer}>
           {mapLoaded ? (
             <LoadScript googleMapsApiKey="AIzaSyBwsDiKGcVtGZJo11d5-eXwnr02q2UmtXo">
@@ -40,6 +81,7 @@ const Karta = () => {
                 onError={(error) => console.error("Greška pri učitavanju mape:", error)}
               >
                 <Marker position={initialCenter} />
+                {location && <Marker position={location} />}
               </GoogleMap>
             </LoadScript>
           ) : (
