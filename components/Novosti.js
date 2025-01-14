@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, FlatList, ImageBackground, SafeAreaView } from 
 import { SettingsContext } from '../SettingsContext';
 
 const NovostiScreen = () => {
-  const { language, getBackgroundImage, theme } = useContext(SettingsContext);
+  const { language, getBackgroundImage, theme, translate } = useContext(SettingsContext);
 
   const newsData = {
     en: [
@@ -35,9 +35,11 @@ const NovostiScreen = () => {
         style={styles.container}
       >
         <View style={styles.header}>
-          <Text style={[styles.title, { color: theme.text }]}>Novosti i Ažuriranja</Text>
+          <Text style={[styles.title, { color: theme.text }]}>
+            {translate("Novosti i Ažuriranja")}
+          </Text>
         </View>
-
+        
         <FlatList
           data={newsData[language]} 
           keyExtractor={(item) => item.id}

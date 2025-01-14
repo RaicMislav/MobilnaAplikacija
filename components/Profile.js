@@ -52,20 +52,24 @@ const Profile = () => {
             
             <View style={styles.rowContainer}>
               <View style={styles.inputContainerSmall}>
-                <Text style={[styles.label, { color: theme.text }]}>Ime:</Text>
+                <Text style={[styles.label, { color: theme.text }]}>
+                  {translate("Ime:")}
+                  </Text>
                 <TextInput
                   style={styles.input}
-                  placeholder="Unesite ime"
+                  placeholder={translate("Unesite ime")}
                   placeholderTextColor="#EAEAEA" 
                   value={name}
                   onChangeText={setName}
                 />
               </View>
               <View style={styles.inputContainerSmall}>
-                <Text style={[styles.label, { color: theme.text }]}>Prezime:</Text>
+                <Text style={[styles.label, { color: theme.text }]}>
+                  {translate("Prezime:")}
+                  </Text>
                 <TextInput
                   style={styles.input}
-                  placeholder="Unesite prezime"
+                  placeholder={translate("Unesite prezime")}
                   placeholderTextColor="#EAEAEA"
                   value={surname}
                   onChangeText={setSurname}
@@ -78,7 +82,7 @@ const Profile = () => {
               <Text style={[styles.label, { color: theme.text }]}>Email:</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Unesite email"
+                placeholder={translate("Unesite email")}
                 placeholderTextColor="#EAEAEA" 
                 keyboardType="email-address"
                 value={email}
@@ -88,7 +92,9 @@ const Profile = () => {
 
             
             <View style={[styles.inputContainer, open && { zIndex: 999 }]}>
-              <Text style={[styles.label, { color: theme.text }]}>Država:</Text>
+              <Text style={[styles.label, { color: theme.text }]}>
+                {translate("Država:")}
+                </Text>
               <DropDownPicker
                 open={open}
                 value={country}
@@ -96,9 +102,9 @@ const Profile = () => {
                 setOpen={setOpen}
                 setValue={setCountry}
                 setItems={setCountries}
-                placeholder="Unesite ili odaberite državu"
+                placeholder={translate("Unesite ili odaberite državu")}
                 searchable={true}
-                searchPlaceholder="Pretraži državu..."
+                searchPlaceholder={translate("Pretraži državu...")}
                 searchTextInputProps={{
                   autoCorrect: false,
                   spellCheck: false,
@@ -115,10 +121,12 @@ const Profile = () => {
 
             
             <View style={[styles.inputContainer, { zIndex: open ? -1 : 1 }]}>
-              <Text style={[styles.label, { color: theme.text }]}>Mobitel:</Text>
+              <Text style={[styles.label, { color: theme.text }]}>
+                {translate("Mobitel:")}
+              </Text>
               <TextInput
                 style={styles.input}
-                placeholder="Unesite broj mobitela"
+                placeholder={translate("Unesite broj mobitela")}
                 placeholderTextColor="#EAEAEA" 
                 keyboardType="phone-pad"
                 value={mobile}
@@ -128,10 +136,12 @@ const Profile = () => {
 
             
             <View style={[styles.inputContainer, { zIndex: open ? -1 : 1 }]}>
-              <Text style={[styles.label, { color: theme.text }]}>Adresa:</Text>
+              <Text style={[styles.label, { color: theme.text }]}>
+              {translate("Adresa:")}
+              </Text>
               <TextInput
                 style={styles.input}
-                placeholder="Unesite adresu"
+                placeholder={translate("Unesite adresu")}
                 placeholderTextColor="#EAEAEA" 
                 value={address}
                 onChangeText={setAddress}
@@ -140,10 +150,12 @@ const Profile = () => {
 
             
             <View style={[styles.inputContainer, { zIndex: open ? -1 : 1 }]}>
-              <Text style={[styles.label, { color: theme.text }]}>Grad:</Text>
+              <Text style={[styles.label, { color: theme.text }]}>
+              {translate("Grad:")}
+              </Text>
               <TextInput
                 style={styles.input}
-                placeholder="Unesite grad"
+                placeholder={translate("Unesite grad")}
                 placeholderTextColor="#EAEAEA" 
                 value={city}
                 onChangeText={setCity}
@@ -152,7 +164,9 @@ const Profile = () => {
 
             
             <TouchableOpacity  style={styles.customButton} onPress={handleSave}>
-              <Text  style={styles.buttonText}>Save Changes</Text>
+              <Text  style={styles.buttonText}>
+              {translate("Spasi izmjene")}
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

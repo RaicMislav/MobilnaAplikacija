@@ -17,7 +17,7 @@ const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const TabNavigator = () => {
-  const { theme, isDarkMode } = useContext(SettingsContext); // Use the context
+  const { theme, isDarkMode, translate } = useContext(SettingsContext); // Use the context
 
   return (
     <>
@@ -28,7 +28,7 @@ const TabNavigator = () => {
         translucent={false} // Ensure no overlap with content
       />
       <Tab.Navigator
-        initialRouteName="Home"
+        initialRouteName="Početna"
         screenOptions={({ route }) => ({
           headerRight: () => <ProfileButton />, // Profile button on the header
           headerRightContainerStyle: {
@@ -39,13 +39,13 @@ const TabNavigator = () => {
 
             if (route.name === 'FAQ') {
               iconName = 'book';
-            } else if (route.name === 'Karta') {
+            } else if (route.name === translate("Karta")) {
               iconName = 'map';
-            } else if (route.name === 'Home') {
+            } else if (route.name === translate("Početna")) {
               iconName = 'home';
-            } else if (route.name === 'Kontakt') {
+            } else if (route.name === translate("Kontakt")) {
               iconName = 'phone';
-            } else if (route.name === 'Novosti') {
+            } else if (route.name === translate("Novosti")) {
               iconName = 'email';
             }
 
@@ -68,18 +68,18 @@ const TabNavigator = () => {
           headerTintColor: isDarkMode ? '#fff' : '#333',
         })}
       >
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Novosti" component={Novosti} />
+        <Tab.Screen name={translate("Početna")} component={Home} />
+        <Tab.Screen name={translate("Novosti")} component={Novosti} />
         <Tab.Screen name="FAQ" component={FAQ} />
-        <Tab.Screen name="Karta" component={Karta} />
-        <Tab.Screen name="Kontakt" component={Kontakt} />
+        <Tab.Screen name={translate("Karta")} component={Karta} />
+        <Tab.Screen name={translate("Kontakt")} component={Kontakt} />
       </Tab.Navigator>
     </>
   );
 };
 
 const LoggedInTabs = () => {
-  const { theme } = useContext(SettingsContext);
+  const {translate, theme } = useContext(SettingsContext);
 
   return (
     <Stack.Navigator>
@@ -90,8 +90,8 @@ const LoggedInTabs = () => {
         options={{ headerShown: false }} // Hide header for Tab.Navigator
       />
       {/* Hidden screens */}
-      <Stack.Screen name="Profil" component={Profile} />
-      <Stack.Screen name="Postavke" component={Postavke} />
+      <Stack.Screen name="Profil" component={Profile} options={{ headerTitle: translate("Profil") }} />
+      <Stack.Screen name="Postavke" component={Postavke} options={{ headerTitle: translate("Postavke") }} />
     </Stack.Navigator>
   );
 };

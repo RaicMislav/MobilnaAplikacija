@@ -6,15 +6,15 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function KontaktScreen() {
   const navigation = useNavigation();
-  const { translate, theme, getBackgroundImage } = useContext(SettingsContext);
+  const { translate, theme, getBackgroundImage, } = useContext(SettingsContext);
 
   const { height, width } = Dimensions.get('window'); // Get screen dimensions
 
   const contactItems = [
-    { id: '1', label: 'Adresa', value: 'Matice hrvatske b.b., 88000 Mostar, Bosna i Hercegovina' },
-    { id: '2', label: 'Telefon', value: '+387 (36) 337-002', action: 'phone' },
-    { id: '3', label: 'Email', value: 'office@fsre.sum.ba', action: 'email' },
-    { id: '4', label: 'Posjetite nas', value: 'Pogledaj na mapi', action: 'map' },
+    { id: '1', label: translate("Adresa"), value: 'Matice hrvatske b.b., 88000 Mostar, Bosna i Hercegovina' },
+    { id: '2', label: translate("Telefon"), value: '+387 (36) 337-002', action: 'phone' },
+    { id: '3', label: translate("Email"), value: 'office@fsre.sum.ba', action: 'email' },
+    { id: '4', label: translate("Posjetite nas"), value: translate("Pogledaj na mapi"), action: 'map' },
   ];
 
   const handleAction = (action, value) => {
@@ -47,7 +47,9 @@ export default function KontaktScreen() {
         showsVerticalScrollIndicator={false} // Remove scroll indicator
         scrollEnabled={false} // Disable scrolling
         ListHeaderComponent={() => (
-          <Text style={[styles.title, { color: theme.text }]}>Kontaktirajte nas</Text>
+          <Text style={[styles.title, { color: theme.text }]}>
+            {translate("Kontaktirajte nas")}
+            </Text>
         )}
       />
 
@@ -58,7 +60,9 @@ export default function KontaktScreen() {
           { bottom: Platform.OS === 'ios' || width < 480 ? 40 : 20 }, // Adjust position for mobile
         ]}
       >
-        <Text style={styles.socialMediaText}>Zapratite nas na:</Text>
+        <Text style={styles.socialMediaText}>
+          {translate("Zapratite nas na:")}
+          </Text>
         <View style={styles.socialIcons}>
           <TouchableOpacity onPress={() => Linking.openURL('https://www.facebook.com/fsre.mostar')}>
             <Icon name="facebook-square" size={40} color="#3b5998" />
