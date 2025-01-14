@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, ImageBackground, ScrollView, TextInput, 
 import DropDownPicker from 'react-native-dropdown-picker';
 import { SettingsContext } from '../SettingsContext';
 import { launchImageLibrary } from 'react-native-image-picker';  // Import the image picker
+import { supabase } from '../supabaseConfig';  // Import Supabase config
 
 const Profile = () => {
   const { theme, translate, getBackgroundImage, getLogo } = useContext(SettingsContext);
@@ -44,14 +45,40 @@ const Profile = () => {
   };
 
   // Function to open the image gallery
-  const handleUpload = () => {
-    launchImageLibrary({ mediaType: 'photo', quality: 0.5 }, (response) => {
+  const handleUpload = async () => {
+    launchImageLibrary({ mediaType: 'photo', quality: 0.5 }, async (response) => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.errorCode) {
         console.log('ImagePicker Error: ', response.errorMessage);
       } else {
         setPhotoUri(response.assets[0].uri); // Store the selected photo URI
+
+        // Upload image to Supabase Storage
+        const fileUri = response.assets[0].uri;
+        const fileName = fileUri.split('/').pop();  // Extract file name from URI
+        const fileType = response.assets[0].type;  // Get the file type (e.g., image/jpeg)
+        
+        const file = {
+          uri: fileUri,
+          name: fileName,
+          type: fileType,
+        };
+
+        const { data, error } = await supabase.storage
+          .from('UserPhotos')
+          .upload(`user_photos/${fileName}`, file, {
+            cacheControl: '3600',
+            upsert: false, // Don't overwrite the file if it already exists
+          });
+
+        if (error) {
+          console.log('Upload error: ', error);
+          Alert.alert('Upload failed', 'Failed to upload image. Please try again later.');
+        } else {
+          console.log('Upload success:', data);
+          Alert.alert('Upload successful', 'Your photo has been uploaded.');
+        }
       }
     });
   };
