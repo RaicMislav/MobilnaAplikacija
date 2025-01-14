@@ -4,7 +4,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { SettingsContext } from '../SettingsContext';
 
 const Profile = () => {
-  const { theme, translate, getBackgroundImage, getLogo } = useContext(SettingsContext)
+  const { theme, translate, getBackgroundImage, getLogo } = useContext(SettingsContext);
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
@@ -33,7 +33,6 @@ const Profile = () => {
     );
   };
 
-  
   const customSearchFunction = (text) => {
     const searchText = text.toLowerCase();
     return countries.filter((item) =>
@@ -49,12 +48,11 @@ const Profile = () => {
           <View style={styles.infoContainer}>
             <Text style={[styles.title, { color: theme.text }]}>{translate("Unesite svoje podatke")}</Text>
 
-            
             <View style={styles.rowContainer}>
               <View style={styles.inputContainerSmall}>
                 <Text style={[styles.label, { color: theme.text }]}>
                   {translate("Ime:")}
-                  </Text>
+                </Text>
                 <TextInput
                   style={styles.input}
                   placeholder={translate("Unesite ime")}
@@ -66,7 +64,7 @@ const Profile = () => {
               <View style={styles.inputContainerSmall}>
                 <Text style={[styles.label, { color: theme.text }]}>
                   {translate("Prezime:")}
-                  </Text>
+                </Text>
                 <TextInput
                   style={styles.input}
                   placeholder={translate("Unesite prezime")}
@@ -77,7 +75,6 @@ const Profile = () => {
               </View>
             </View>
 
-            
             <View style={styles.inputContainer}>
               <Text style={[styles.label, { color: theme.text }]}>Email:</Text>
               <TextInput
@@ -90,11 +87,10 @@ const Profile = () => {
               />
             </View>
 
-            
             <View style={[styles.inputContainer, open && { zIndex: 999 }]}>
               <Text style={[styles.label, { color: theme.text }]}>
                 {translate("Država:")}
-                </Text>
+              </Text>
               <DropDownPicker
                 open={open}
                 value={country}
@@ -119,7 +115,6 @@ const Profile = () => {
               />
             </View>
 
-            
             <View style={[styles.inputContainer, { zIndex: open ? -1 : 1 }]}>
               <Text style={[styles.label, { color: theme.text }]}>
                 {translate("Mobitel:")}
@@ -134,10 +129,9 @@ const Profile = () => {
               />
             </View>
 
-            
             <View style={[styles.inputContainer, { zIndex: open ? -1 : 1 }]}>
               <Text style={[styles.label, { color: theme.text }]}>
-              {translate("Adresa:")}
+                {translate("Adresa:")}
               </Text>
               <TextInput
                 style={styles.input}
@@ -148,10 +142,9 @@ const Profile = () => {
               />
             </View>
 
-            
             <View style={[styles.inputContainer, { zIndex: open ? -1 : 1 }]}>
               <Text style={[styles.label, { color: theme.text }]}>
-              {translate("Grad:")}
+                {translate("Grad:")}
               </Text>
               <TextInput
                 style={styles.input}
@@ -162,13 +155,17 @@ const Profile = () => {
               />
             </View>
 
-            
-            <TouchableOpacity  style={styles.customButton} onPress={handleSave}>
-              <Text  style={styles.buttonText}>
-              {translate("Spasi izmjene")}
-              </Text>
+            <TouchableOpacity style={styles.customButton} onPress={handleSave}>
+              <Text style={styles.buttonText}>{translate("Spasi izmjene")}</Text>
             </TouchableOpacity>
           </View>
+        </View>
+
+        {/* Green plus button */}
+        <View style={styles.addButtonContainer}>
+          <TouchableOpacity style={styles.addButton} onPress={() => { /* Handle the action */ }}>
+            <Text style={styles.addButtonText}>+</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </ImageBackground>
@@ -191,10 +188,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   logo: {
-    width: 120, // Reduced size to save space
+    width: 120,
     height: 120,
     resizeMode: 'contain',
-    marginTop: 20, // Slightly reduced margin
+    marginTop: 20,
     marginRight: 15,
   },
   infoContainer: {
@@ -203,33 +200,33 @@ const styles = StyleSheet.create({
     marginHorizontal: '5%',
   },
   title: {
-    fontSize: 22, // Slightly smaller font size
+    fontSize: 22,
     fontWeight: 'bold',
     color: '#EAEAEA',
     textAlign: 'center',
-    marginBottom: 20, // Reduced bottom margin
+    marginBottom: 20,
   },
   rowContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 12, // Reduced bottom margin
+    marginBottom: 12,
     width: '100%',
   },
   inputContainer: {
-    marginBottom: 12, // Reduced bottom margin for inputs
+    marginBottom: 12,
     width: '100%',
   },
   inputContainerSmall: {
     width: '48%',
   },
   label: {
-    fontSize: 14, // Slightly smaller font size
+    fontSize: 14,
     fontWeight: '600',
     color: '#EAEAEA',
     marginBottom: 5,
   },
   input: {
-    height: 45, // Maintained size for usability
+    height: 45,
     borderColor: '#EAEAEA',
     borderWidth: 1,
     borderRadius: 8,
@@ -254,18 +251,41 @@ const styles = StyleSheet.create({
   },
   customButton: {
     backgroundColor: '#4CAF50',
-    paddingVertical: 14, // Adjusted to maintain usability
+    paddingVertical: 14,
     paddingHorizontal: 35,
     borderRadius: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20, // Reduced top margin
+    marginTop: 20,
   },
   buttonText: {
     color: '#1A1A1A',
     fontSize: 16,
     fontWeight: 'bold',
     textTransform: 'uppercase',
+  },
+  
+  // New styles for the green button with plus sign
+  addButtonContainer: {
+    position: 'absolute',
+    bottom: 30, 
+    right: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  addButton: {
+    backgroundColor: '#4CAF50',
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  addButtonText: {
+    color: '#fff',
+    fontSize: 30,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 
