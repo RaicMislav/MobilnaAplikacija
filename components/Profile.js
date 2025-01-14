@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { View, Text, StyleSheet, Image, ImageBackground, ScrollView, TextInput, TouchableOpacity, Alert } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { SettingsContext } from '../SettingsContext';
+import { launchImageLibrary } from 'react-native-image-picker';  // Import the image picker
 
 const Profile = () => {
   const { theme, translate, getBackgroundImage, getLogo } = useContext(SettingsContext);
@@ -25,6 +26,8 @@ const Profile = () => {
     { label: 'Italy', value: 'Italy' },
     { label: 'India', value: 'India' },
   ]);
+  const [photoUri, setPhotoUri] = useState(null); // Store the selected photo URI
+  const [isUploadVisible, setIsUploadVisible] = useState(false); // Track visibility of the upload button
 
   const handleSave = () => {
     Alert.alert(
@@ -40,18 +43,37 @@ const Profile = () => {
     );
   };
 
+  // Function to open the image gallery
+  const handleUpload = () => {
+    launchImageLibrary({ mediaType: 'photo', quality: 0.5 }, (response) => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.errorCode) {
+        console.log('ImagePicker Error: ', response.errorMessage);
+      } else {
+        setPhotoUri(response.assets[0].uri); // Store the selected photo URI
+      }
+    });
+  };
+
+  // Toggle the visibility of the upload button
+  const toggleUploadVisibility = () => {
+    setIsUploadVisible(!isUploadVisible);
+  };
+
   return (
     <ImageBackground source={getBackgroundImage()} style={styles.background}>
       <ScrollView contentContainerStyle={styles.container} nestedScrollEnabled={true}>
         <View style={styles.profileContainer}>
-        <View style={styles.imageContainer}>
-          <Image source={getLogo()} style={styles.logo} />
-          <View style={styles.imageBoxContainer}>
-            <Image 
-              source={require('../assets/unknown_user_icon.jpg')} 
-              style={styles.userImage} 
-            />
-          </View> </View>
+          <View style={styles.imageContainer}>
+            <Image source={getLogo()} style={styles.logo} />
+            <View style={styles.imageBoxContainer}>
+              <Image 
+                source={photoUri ? { uri: photoUri } : require('../assets/unknown_user_icon.jpg')} 
+                style={styles.userImage} 
+              />
+            </View>
+          </View>
           <View style={styles.infoContainer}>
             <Text style={[styles.title, { color: theme.text }]}>{translate("Unesite svoje podatke")}</Text>
 
@@ -170,9 +192,17 @@ const Profile = () => {
 
         {/* Green plus button */}
         <View style={styles.addButtonContainer}>
-          <TouchableOpacity style={styles.addButton} onPress={() => { /* Handle the action */ }}>
+          <TouchableOpacity style={styles.addButton} onPress={toggleUploadVisibility}>
             <Text style={styles.addButtonText}>+</Text>
           </TouchableOpacity>
+          {/* Upload button */}
+          {isUploadVisible && (
+            <View style={styles.uploadButtonContainer}>
+              <TouchableOpacity onPress={handleUpload} style={styles.uploadButton}>
+                <Text style={styles.uploadButtonText}>Upload</Text>
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
       </ScrollView>
     </ImageBackground>
@@ -236,7 +266,7 @@ const styles = StyleSheet.create({
     height: 45,
     borderColor: '#EAEAEA',
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: 12, // Added more rounded edges
     paddingHorizontal: 15,
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
     color: '#EAEAEA',
@@ -245,6 +275,7 @@ const styles = StyleSheet.create({
   dropdown: {
     borderColor: '#EAEAEA',
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 12, // Rounded dropdown
   },
   dropdownPlaceholder: {
     color: '#EAEAEA',
@@ -255,6 +286,7 @@ const styles = StyleSheet.create({
   dropdownContainer: {
     borderColor: '#EAEAEA',
     backgroundColor: '#1A1A1A',
+    borderRadius: 12, // Rounded dropdown container
   },
   customButton: {
     backgroundColor: '#4CAF50',
@@ -264,6 +296,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 20,
+    elevation: 4, // Added shadow effect for a 3D look
   },
   buttonText: {
     color: '#1A1A1A',
@@ -271,13 +304,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textTransform: 'uppercase',
   },
-  
   imageContainer: {
     display: 'flex',
     flexDirection : 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    
   },
   imageBoxContainer: {
     marginBottom: 20,
@@ -285,7 +316,7 @@ const styles = StyleSheet.create({
   },
   addButtonContainer: {
     position: 'absolute',
-    bottom: 30, 
+    bottom: 30,
     right: 20,
     alignItems: 'center',
     justifyContent: 'center',
@@ -297,6 +328,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     alignItems: 'center',
     justifyContent: 'center',
+    elevation: 6, // Added shadow effect for a 3D look
   },
   addButtonText: {
     color: '#fff',
@@ -307,10 +339,39 @@ const styles = StyleSheet.create({
   userImage: {
     width: 150,
     height: 150,
-    borderRadius: "50%",
+    borderRadius: 75, // Round user image
     resizeMode: 'cover',
     marginBottom: 20,
   },
+  uploadButtonContainer: {
+    position: 'absolute',
+    top: -60, // Adjust this value to position the Upload button correctly above the plus button
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+    overflow: 'hidden',
+  },
+  uploadButton: {
+    backgroundColor: '#fff',  // White background
+    paddingVertical: 12,  // Vertical padding
+    paddingHorizontal: 24,  // Horizontal padding
+    borderRadius: 30,  // Rounded edges
+    width: 'auto',  // Auto width based on content
+    shadowColor: '#000',  // Shadow color for iOS
+    shadowOffset: { width: 0, height: 4 },  // Shadow position
+    shadowOpacity: 0.2,  // Shadow opacity
+    shadowRadius: 8,  // Shadow blur radius
+    elevation: 4,  // Shadow for Android
+    alignItems: 'center',  // Center text inside button
+    justifyContent: 'center',  // Center text inside button
+    marginTop: 10,  // Space from other elements
+  },
+  uploadButtonText: {
+    color: '#4CAF50',  // Text color (green for emphasis)
+    fontSize: 16,  // Font size
+    fontWeight: 'bold',  // Bold text
+    textAlign: 'center',  // Center text
+  }
 });
 
 export default Profile;
