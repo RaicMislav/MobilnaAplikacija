@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext, useEffect, useState } from 'react';
-import { View, StyleSheet, Image, ImageBackground, ActivityIndicator, Text, Dimensions } from 'react-native';
+import { View, StyleSheet, Image, ImageBackground, ActivityIndicator, Dimensions } from 'react-native';
 import { SettingsContext } from '../SettingsContext';
 
 const { width, height } = Dimensions.get('window'); 
@@ -11,11 +11,10 @@ const StartScreen = () => {
     const { theme, getBackgroundImage, getLogo } = useContext(SettingsContext);
 
     useEffect(() => {
-        
         if (isImageLoaded) {
             const timer = setTimeout(() => {
                 navigation.navigate('LoggedOutView'); 
-            }, 3000);
+            }, 2800);
 
             return () => clearTimeout(timer); 
         }
@@ -30,22 +29,27 @@ const StartScreen = () => {
         >
             {isImageLoaded && (
                 <View style={styles.container}>
-                    
+                    {/* Main Logo */}
                     <Image
                         source={getLogo()}
                         style={styles.logo}
                         resizeMode="contain"
                     />
                     
+                    {/* Loading Spinner */}
                     <ActivityIndicator
                         size="large"
                         color="#ffffff" 
                         style={styles.spinner}
                     />
                     
-                    <View style={styles.textContainer}>
-                        <Text style={[styles.poweredText, { color: theme.text }]}>Powered by</Text>
-                        <Text style={[styles.zbunjeniText, { color: theme.text }]}>zBunjeni</Text>
+                    {/* Footer Logo */}
+                    <View style={styles.footerLogoContainer}>
+                        <Image
+                            source={require('../assets/StartLogo.png')} 
+                            style={styles.footerLogo}
+                            resizeMode="contain"
+                        />
                     </View>
                 </View>
             )}
@@ -68,29 +72,23 @@ const styles = StyleSheet.create({
     },
     logo: {
         width: width * 0.8, 
-        height: height * 0.25, 
+        height: height * 0.28, 
         marginBottom: 20, 
     },
     spinner: {
         marginTop: 10, 
     },
-    textContainer: {
+    footerLogoContainer: {
         position: 'absolute',
-        bottom: height * 0.05, 
+        bottom: height * 0.02, 
         alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
     },
-    poweredText: {
-        fontSize: 16, 
-        fontWeight: 'bold', 
-        color: '#ffffff', 
-        textAlign: 'center',
-        opacity: 0.8, 
-    },
-    zbunjeniText: {
-        fontSize: 18, 
-        fontWeight: 'bold', 
-        color: '#ffffff', 
-        textAlign: 'center',
+    footerLogo: {
+        width: width * 0.64,
+        height: height * 0.14,
+        
     },
 });
 
