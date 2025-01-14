@@ -178,12 +178,12 @@ const Profile = () => {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
   },
   container: {
     flexGrow: 1,
-    padding: 20,
+    padding: '5%',
   },
   profileContainer: {
     flexDirection: 'row',
@@ -191,79 +191,78 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   logo: {
-    width: 120,
+    width: 120, // Reduced size to save space
     height: 120,
     resizeMode: 'contain',
-    marginTop: 30,
-    marginRight: 20,
+    marginTop: 20, // Slightly reduced margin
+    marginRight: 15,
   },
   infoContainer: {
     flex: 1,
     alignItems: 'flex-start',
-    marginLeft: 20,
-    marginRight: '10%',
+    marginHorizontal: '5%',
   },
   title: {
-    fontSize: 24,
+    fontSize: 22, // Slightly smaller font size
     fontWeight: 'bold',
-    color: '#EAEAEA', 
+    color: '#EAEAEA',
     textAlign: 'center',
-    marginBottom: 30,
+    marginBottom: 20, // Reduced bottom margin
   },
   rowContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 15,
+    marginBottom: 12, // Reduced bottom margin
     width: '100%',
   },
   inputContainer: {
-    marginBottom: 15,
+    marginBottom: 12, // Reduced bottom margin for inputs
     width: '100%',
   },
   inputContainerSmall: {
     width: '48%',
   },
   label: {
-    fontSize: 14,
+    fontSize: 14, // Slightly smaller font size
     fontWeight: '600',
-    color: '#EAEAEA', 
+    color: '#EAEAEA',
     marginBottom: 5,
   },
   input: {
-    height: 45,
-    borderColor: '#EAEAEA', 
+    height: 45, // Maintained size for usability
+    borderColor: '#EAEAEA',
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 15,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)', 
-    color: '#EAEAEA', 
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    color: '#EAEAEA',
     fontSize: 14,
   },
   dropdown: {
-    borderColor: '#EAEAEA', 
+    borderColor: '#EAEAEA',
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
   },
   dropdownPlaceholder: {
-    color: '#EAEAEA', 
+    color: '#EAEAEA',
   },
   dropdownText: {
-    color: '#EAEAEA', 
+    color: '#EAEAEA',
   },
   dropdownContainer: {
     borderColor: '#EAEAEA',
-    backgroundColor: '#1A1A1A', 
+    backgroundColor: '#1A1A1A',
   },
   customButton: {
-    backgroundColor: '#4CAF50', 
-    paddingVertical: 14,
+    backgroundColor: '#4CAF50',
+    paddingVertical: 14, // Adjusted to maintain usability
     paddingHorizontal: 35,
     borderRadius: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 25,
+    marginTop: 20, // Reduced top margin
   },
   buttonText: {
-    color: '#1A1A1A', 
+    color: '#1A1A1A',
     fontSize: 16,
     fontWeight: 'bold',
     textTransform: 'uppercase',
