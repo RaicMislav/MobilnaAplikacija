@@ -7,7 +7,7 @@ export default App = () => {
     return (
         <SettingsProvider>
             <AuthProvider>
-                <Navigation />
+                <Navigation /> 
             </AuthProvider>
         </SettingsProvider>
     );

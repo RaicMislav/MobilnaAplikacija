@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SettingsContext } from '../SettingsContext';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Home = () => {
   const navigation = useNavigation();
@@ -38,6 +39,12 @@ const Home = () => {
             {translate("Saznaj više")}
           </Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.chatbotButton}
+          onPress={() => navigation.navigate('Chatbot')}
+        >
+          <Icon name="comments" size={30} color="navy" />
+        </TouchableOpacity>
       </View>
     </ImageBackground>
   );
@@ -45,16 +52,16 @@ const Home = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, // Full screen
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%', // Ensures ImageBackground takes full width
-    height: '100%', // Ensures ImageBackground takes full height
+    width: '100%',
+    height: '100%',
   },
   textContainer: {
-    paddingHorizontal: 20, // Adds padding to keep text away from edges
+    paddingHorizontal: 20,
     alignItems: 'center',
-    marginBottom: 30, // Adds space between text and logo
+    marginBottom: 30,
   },
   title: {
     fontSize: 28,
@@ -106,6 +113,16 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  chatbotButton: {
+    position: 'absolute',
+    bottom: 130,  
+    right: 10,
+    backgroundColor: 'white',
+    borderRadius: 40,
+    padding: 10,
+    elevation: 2,
+    radius: 10,
   },
 });
 
