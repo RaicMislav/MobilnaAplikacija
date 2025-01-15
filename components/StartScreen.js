@@ -13,7 +13,7 @@ const StartScreen = () => {
     useEffect(() => {
         if (isImageLoaded) {
             const timer = setTimeout(() => {
-                navigation.navigate('LoggedOutView'); 
+                navigation.navigate('Register'); 
             }, 2800);
 
             return () => clearTimeout(timer); 

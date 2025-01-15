@@ -21,10 +21,10 @@ export default function FAQScreen() {
   };
 
   const renderFAQItem = ({ item }) => (
-    <View style={styles.faqItem}>
-      <Text style={[styles.question, { color: theme.text }]}>{item.question}</Text>
-      <Text style={[styles.answer, { color: theme.text }]}>{item.answer}</Text>
-    </View>
+    <View style={[styles.faqItem, { backgroundColor: theme.card }]}>
+    <Text style={[styles.question, { color: theme.text }]}>{item.question}</Text>
+    <Text style={[styles.answer, { color: theme.text }]}>{item.answer}</Text>
+  </View>
   );
 
   return (

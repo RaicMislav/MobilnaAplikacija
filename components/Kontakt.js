@@ -28,7 +28,7 @@ export default function KontaktScreen() {
   };
 
   const renderContactItem = ({ item }) => (
-    <View style={styles.contactItem}>
+    <View style={[styles.contactItem, { backgroundColor: theme.card }]}>
       <Text style={[styles.label, { color: theme.text }]}>{item.label}</Text>
       <TouchableOpacity onPress={() => handleAction(item.action, item.value)}>
         <Text style={styles.value}>{item.value}</Text>
@@ -57,10 +57,10 @@ export default function KontaktScreen() {
       <View
         style={[
           styles.socialMediaContainer,
-          { bottom: Platform.OS === 'ios' || width < 480 ? 40 : 20 }, // Adjust position for mobile
+          { backgroundColor: theme.card, bottom: Platform.OS === 'ios' || width < 480 ? 40 : 20 }, // Adjust position for mobile
         ]}
       >
-        <Text style={styles.socialMediaText}>
+        <Text style={[styles.socialMediaText, { color: theme.text }]}>
           {translate("Zapratite nas na:")}
           </Text>
         <View style={styles.socialIcons}>

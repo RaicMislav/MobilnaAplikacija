@@ -17,15 +17,15 @@ const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const TabNavigator = () => {
-  const { theme, isDarkMode, translate } = useContext(SettingsContext); // Use the context
+  const { theme, isDarkMode, translate } = useContext(SettingsContext); // Use theme and translate from context
 
   return (
     <>
       {/* Configure StatusBar */}
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={isDarkMode ? '#333333' : '#f5f5f5'}
-        translucent={false} // Ensure no overlap with content
+        backgroundColor={theme.tab}
+        translucent={false}
       />
       <Tab.Navigator
         initialRouteName="Početna"
@@ -39,13 +39,13 @@ const TabNavigator = () => {
 
             if (route.name === 'FAQ') {
               iconName = 'book';
-            } else if (route.name === translate("Karta")) {
+            } else if (route.name === translate('Karta')) {
               iconName = 'map';
-            } else if (route.name === translate("Početna")) {
+            } else if (route.name === translate('Početna')) {
               iconName = 'home';
-            } else if (route.name === translate("Kontakt")) {
+            } else if (route.name === translate('Kontakt')) {
               iconName = 'phone';
-            } else if (route.name === translate("Novosti")) {
+            } else if (route.name === translate('Novosti')) {
               iconName = 'email';
             }
 
@@ -54,32 +54,32 @@ const TabNavigator = () => {
           tabBarActiveTintColor: isDarkMode ? 'white' : 'navy',
           tabBarInactiveTintColor: isDarkMode ? 'gray' : 'gray',
           tabBarStyle: {
-            backgroundColor: isDarkMode ? '#333333' : '#f5f5f5',
+            backgroundColor: theme.tab,
             borderTopWidth: 0, // Remove the top border
             paddingBottom: Platform.OS === 'android' ? 0 : 10,
             marginBottom: 0,
           },
           headerStyle: {
-            backgroundColor: isDarkMode ? '#333' : '#fff',
+            backgroundColor: theme.tab, // Use theme.tab background
             elevation: 0, // Remove shadow on Android
             shadowOpacity: 0, // Remove shadow on iOS
             borderBottomWidth: 0, // Remove bottom border
           },
-          headerTintColor: isDarkMode ? '#fff' : '#333',
+          headerTintColor: theme.text,
         })}
       >
-        <Tab.Screen name={translate("Početna")} component={Home} />
-        <Tab.Screen name={translate("Novosti")} component={Novosti} />
+        <Tab.Screen name={translate('Početna')} component={Home} />
+        <Tab.Screen name={translate('Novosti')} component={Novosti} />
         <Tab.Screen name="FAQ" component={FAQ} />
-        <Tab.Screen name={translate("Karta")} component={Karta} />
-        <Tab.Screen name={translate("Kontakt")} component={Kontakt} />
+        <Tab.Screen name={translate('Karta')} component={Karta} />
+        <Tab.Screen name={translate('Kontakt')} component={Kontakt} />
       </Tab.Navigator>
     </>
   );
 };
 
 const LoggedInTabs = () => {
-  const {translate, theme } = useContext(SettingsContext);
+  const { translate, theme } = useContext(SettingsContext);
 
   return (
     <Stack.Navigator>
@@ -90,8 +90,18 @@ const LoggedInTabs = () => {
         options={{ headerShown: false }} // Hide header for Tab.Navigator
       />
       {/* Hidden screens */}
-      <Stack.Screen name="Profil" component={Profile} options={{ headerTitle: translate("Profil") }} />
-      <Stack.Screen name="Postavke" component={Postavke} options={{ headerTitle: translate("Postavke") }} />
+      <Stack.Screen name="Profil" component={Profile} options={
+          { headerTitle: translate('Profil'),  
+            headerStyle: {
+            backgroundColor: theme.tab,
+            },
+          headerTintColor: theme.text, }} />
+      <Stack.Screen name="Postavke" component={Postavke} options={
+          { headerTitle: translate('Postavke'),  
+            headerStyle: {
+            backgroundColor: theme.tab,
+            },
+          headerTintColor: theme.text, }} />
     </Stack.Navigator>
   );
 };

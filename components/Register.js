@@ -1,54 +1,55 @@
 import React, { useState, useContext } from "react";
-import { View, StyleSheet, Text, Image, ImageBackground, TextInput, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, ImageBackground, TextInput, TouchableOpacity } from "react-native";
 import { AuthContext } from "../AuthContext";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { SettingsContext } from "../SettingsContext";
 import { supabase } from "../supabaseConfig";
+import { SettingsContext } from "../SettingsContext";
 import { useNavigation } from "@react-navigation/native";
 
-export default function LoggedOutView() {
+export default function Register() {
   const { login } = useContext(AuthContext);
-  const [email, setEmail] = useState("");
-  const [passw, setPassw] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
-  const { theme, translate, getBackgroundImage, getLogo } = useContext(SettingsContext);
+  const { getBackgroundImage, theme, translate } = useContext(SettingsContext);
   const navigation = useNavigation();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const isValidEmail = (email) => {
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return regex.test(email);
   };
 
-  const handleLogin = async () => {
+  const handleRegister = async () => {
     if (!isValidEmail(email)) {
-      setErrorMsg("Please enter a valid email address.");
+      setErrorMsg(translate("Molimo vas da unesete ispravnu email adresu."));
+      return;
+    }
+
+    // validacija se moze implementirati u supabase configu
+    if (password.length < 6) {
+      setErrorMsg(translate("Lozinka mora imati najmanje 6 znakova."));
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setErrorMsg(translate("Lozinke se ne podudaraju."));
       return;
     }
 
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signUp({
         email,
-        password: passw,
+        password,
       });
 
       if (error) {
         throw error;
       }
 
-      // On successful login, call the login function from AuthContext
-      login();
+      setErrorMsg(translate("Registracija uspješna, molimo vas da potvrdite email adresu."));
     } catch (error) {
-      let errorMessage = "Something went wrong. Please try again.";
-
-      if (error.message.includes("invalid_email")) {
-        errorMessage = "Please enter a valid email address.";
-      } else if (error.message.includes("incorrect_password")) {
-        errorMessage = "Incorrect password. Please try again.";
-      } else if (error.message.includes("user_not_found")) {
-        errorMessage = "No account found with this email.";
-      }
-
-      setErrorMsg(errorMessage);
+      setErrorMsg(error.message || "Nešto je pošlo po krivu. Molimo vas da pokušate ponovo.");
     }
   };
 
@@ -59,50 +60,49 @@ export default function LoggedOutView() {
       resizeMode="stretch"
     >
       <View style={styles.container}>
-        <Image source={getLogo()} style={styles.logo} />
-
-        <Text style={[styles.welcomeText, { color: theme.text }]}>Prijava na Aplikaciju</Text>
+        <Text style={[styles.headerText, { color: theme.text }]}>{translate("Registracija")}</Text>
 
         <View style={styles.inputContainer}>
           <Icon name="envelope" size={20} color="gray" style={styles.icon} />
           <TextInput
-            placeholder="Unesite vašu email adresu"
+            placeholder={translate("Email adresa")}
             value={email}
             onChangeText={setEmail}
             style={styles.input}
-            underlineColorAndroid="transparent"
-            keyboardAppearance="light"
-            returnKeyType="next"
-            onSubmitEditing={() => {
-              passwRef.focus();
-            }}
+            keyboardType="email-address"
           />
         </View>
 
         <View style={styles.inputContainer}>
           <Icon name="key" size={20} color="gray" style={styles.icon} />
           <TextInput
-            ref={(input) => (passwRef = input)}
-            placeholder="Unesite vašu lozinku"
-            value={passw}
-            onChangeText={setPassw}
+            placeholder={translate("Lozinka")}
+            value={password}
+            onChangeText={setPassword}
             secureTextEntry={true}
             style={styles.input}
-            underlineColorAndroid="transparent"
-            keyboardAppearance="light"
-            returnKeyType="done"
-            onSubmitEditing={handleLogin}
           />
         </View>
 
-        {errorMsg ? <Text style={styles.errorMsg}>{errorMsg}</Text> : null}
+        <View style={styles.inputContainer}>
+          <Icon name="key" size={20} color="gray" style={styles.icon} />
+          <TextInput
+            placeholder={translate("Potvrda lozinke")}
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+            secureTextEntry={true}
+            style={styles.input}
+          />
+        </View>
 
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={[styles.buttonText, { color: theme.buttonText }]}>Prijava</Text>
+        {errorMsg ? <Text style={[styles.errorMsg, { color: theme.text }]}>{errorMsg}</Text> : null}
+
+        <TouchableOpacity style={styles.button} onPress={handleRegister}>
+          <Text style={[styles.buttonText, { color: theme.text }]}>{translate("Registracija")}</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-          <Text style={[styles.linkText, { color: theme.text }]}>Don't have an account? Sign up here</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("LoggedOutView")}>
+          <Text style={[styles.linkText, { color: theme.text }]}>{translate("Već imate račun? Prijavite se.")}</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
@@ -121,17 +121,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 20,
   },
-  logo: {
-    width: 150,
-    height: 150,
-    marginBottom: 20,
-  },
-  welcomeText: {
+  headerText: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
     textAlign: "center",
-    color: "white",
   },
   inputContainer: {
     flexDirection: "row",
@@ -152,12 +146,8 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     color: "black",
-    padding: 0,
-    borderWidth: 0,
-    outlineStyle: "none",
   },
   errorMsg: {
-    color: "red",
     marginTop: 10,
     fontSize: 14,
   },
@@ -171,7 +161,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   buttonText: {
-    color: "white",
     fontSize: 18,
     fontWeight: "bold",
   },

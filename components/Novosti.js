@@ -21,7 +21,7 @@ const NovostiScreen = () => {
   };
 
   const renderNewsItem = ({ item }) => (
-    <View style={styles.newsItem}>
+    <View style={[styles.newsItem, { backgroundColor: theme.card }]}>
       <Text style={[styles.newsTitle, { color: theme.text }]}>{item.title}</Text>
       <Text style={[styles.newsDate, { color: theme.text }]}>{item.date}</Text>
       <Text style={[styles.newsDescription, { color: theme.text }]}>{item.description}</Text>
