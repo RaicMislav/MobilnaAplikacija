@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, TextInput, Text, FlatList, StyleSheet, TouchableOpacity, Keyboard } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -9,18 +9,29 @@ const ChatbotScreen = () => {
   const navigation = useNavigation();
 
   const handleSend = () => {
-    if (!input.trim()) return;
+    if (!input.trim()) return; // Prevent sending empty messages
+
+    // Add user message
     setMessages((prev) => [...prev, { text: input, sender: 'user' }]);
+    
+    // Add bot response after a delay (simulate bot thinking)
+    setTimeout(() => {
+      setMessages((prev) => [...prev, { text: "I'm here to help!", sender: 'bot' }]);
+    }, 1000); // Adjust the delay as necessary
+
+    // Clear input and dismiss keyboard
     setInput('');
+    Keyboard.dismiss();
   };
 
   return (
     <View style={styles.container}>
-      {/* Back Gumb u gornjem lijevom kutu */}
+      {/* Back button */}
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
         <Ionicons name="arrow-back" size={24} color="#fff" />
       </TouchableOpacity>
 
+      {/* Messages list */}
       <FlatList
         data={messages}
         renderItem={({ item }) => (
@@ -29,15 +40,21 @@ const ChatbotScreen = () => {
           </View>
         )}
         keyExtractor={(item, index) => index.toString()}
+        contentContainerStyle={{ paddingBottom: 80 }} // To make room for input field
+        ref={(ref) => { this.flatListRef = ref; }}
+        onContentSizeChange={() => this.flatListRef?.scrollToEnd({ animated: true })}
       />
 
+      {/* Input field */}
       <TextInput
         style={styles.input}
         value={input}
         onChangeText={setInput}
         placeholder="Type your message"
+        onSubmitEditing={handleSend}
       />
 
+      {/* Send button */}
       <TouchableOpacity style={styles.sendButton} onPress={handleSend}>
         <Text style={styles.sendButtonText}>Send</Text>
       </TouchableOpacity>
@@ -53,12 +70,12 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    top: 16, // Udaljenost od vrha
-    left: 16, // Udaljenost od lijevog ruba
+    top: 16,
+    left: 16,
     backgroundColor: '#4CAF50',
     borderRadius: 20,
     padding: 10,
-    zIndex: 10, // Osigurava da je iznad drugih elemenata
+    zIndex: 10,
   },
   messageBubble: {
     padding: 10,

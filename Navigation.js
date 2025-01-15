@@ -6,11 +6,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import StartScreen from "./components/StartScreen";
 import Register from "./components/Register";
-import ChatbotScreen from "./components/ChatbotScreen";
+import ChatbotScreen from "./components/ChatbotScreen"; // Import ChatbotScreen
 
 const Stack = createStackNavigator();
 
-export default Navigation = () => {
+const Navigation = () => {
     const { isLoggedIn } = useContext(AuthContext);
 
     return (
@@ -18,11 +18,19 @@ export default Navigation = () => {
             <Stack.Navigator initialRouteName={isLoggedIn ? "LoggedIn" : "Start"}>
                 {/* Logged-in flow */}
                 {isLoggedIn ? (
-                    <Stack.Screen 
-                        name="LoggedIn" 
-                        component={LoggedInTabs} 
-                        options={{ headerShown: false }} 
-                    />
+                    <>
+                        <Stack.Screen 
+                            name="LoggedIn" 
+                            component={LoggedInTabs} 
+                            options={{ headerShown: false }} 
+                        />
+                        {/* Dodajte ChatbotScreen za prijavljene korisnike */}
+                        <Stack.Screen 
+                            name="Chatbot" 
+                            component={ChatbotScreen} 
+                            options={{ headerShown: false }} 
+                        />
+                    </>
                 ) : (
                     <>
                         {/* Start Screen */}
@@ -32,7 +40,7 @@ export default Navigation = () => {
                             options={{ headerShown: false }} 
                         />
                         {/* Register Screen */}
-                          <Stack.Screen 
+                        <Stack.Screen 
                             name="Register" 
                             component={Register} 
                             options={{ headerShown: false }} 
@@ -49,3 +57,5 @@ export default Navigation = () => {
         </NavigationContainer>
     );
 };
+
+export default Navigation;
