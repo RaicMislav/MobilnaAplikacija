@@ -38,6 +38,16 @@ export const translations = {
         "Adresa:": "Address:",
         "Unesite adresu": "Enter address",
         "Spasi izmjene": "Save changes",
+        "Molimo vas da unesete ispravnu email adresu.": "Please enter a valid email address.",
+        "Lozinka mora imati najmanje 6 znakova.": "Password must have at least 6 characters.",
+        "Lozinke se ne podudaraju.": "Passwords do not match.",
+        "Registracija uspješna, molimo vas da potvrdite email adresu.": "Registration successful, please confirm your email address.",
+        "Nešto je pošlo po krivu. Molimo vas da pokušate ponovo.": "Something went wrong. Please try again.",
+        "Registracija": "Registration",
+        "Email adresa": "Email address",
+        "Lozinka": "Password",
+        "Potvrda lozinke": "Confirm password",
+        "Već imate račun? Prijavite se.": "Already have an account? Log in.",
 
     },
     hr: {
@@ -78,6 +88,16 @@ export const translations = {
         "Grad:": "Grad:",
         "Unesite grad": "Unesite grad",
         "Spasi izmjene": "Spasi izmjene",
-        
+        "Molimo vas da unesete ispravnu email adresu.": "Molimo vas da unesete ispravnu email adresu.",
+        "Lozinka mora imati najmanje 6 znakova.": "Lozinka mora imati najmanje 6 znakova.",
+        "Lozinke se ne podudaraju.": "Lozinke se ne podudaraju.",
+        "Registracija uspješna, molimo vas da potvrdite email adresu.": "Registracija uspješna, molimo vas da potvrdite email adresu.",
+        "Nešto je pošlo po krivu. Molimo vas da pokušate ponovo.": "Nešto je pošlo po krivu. Molimo vas da pokušate ponovo.",
+        "Registracija": "Registracija",
+        "Email adresa": "Email adresa",
+        "Lozinka": "Lozinka",
+        "Potvrda lozinke": "Potvrda lozinke",
+        "Već imate račun? Prijavite se.": "Već imate račun? Prijavite se.",
+
     },
 };

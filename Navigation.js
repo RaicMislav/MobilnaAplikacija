@@ -5,6 +5,7 @@ import LoggedOutView from "./components/LoggedOutView";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import StartScreen from "./components/StartScreen";
+import Register from "./components/Register";
 
 const Stack = createStackNavigator();
 
@@ -27,6 +28,12 @@ export default Navigation = () => {
                         <Stack.Screen 
                             name="Start" 
                             component={StartScreen} 
+                            options={{ headerShown: false }} 
+                        />
+                        {/* Register Screen */}
+                          <Stack.Screen 
+                            name="Register" 
+                            component={Register} 
                             options={{ headerShown: false }} 
                         />
                         {/* Logged Out Screen */}

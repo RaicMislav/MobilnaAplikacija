@@ -8,7 +8,7 @@ import { SettingsContext } from '../SettingsContext';
 const ProfileButton = () => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [emoji, setEmoji] = useState('👋');
-  const { translate } = useContext(SettingsContext);
+  const { translate, theme } = useContext(SettingsContext);
   const { logout } = useContext(AuthContext);
   const navigation = useNavigation();
 
@@ -49,8 +49,11 @@ const ProfileButton = () => {
                 }}
               >
                 <View style={styles.dropdownItemContent}>
-                  <MaterialIcons name={item.icon} size={20} color="#333" style={styles.dropdownIcon} />
-                  <Text style={styles.dropdownText}>{item.label}</Text>
+                  <MaterialIcons name={item.icon} size={20}  color={item.label === translate('Odjava') ? theme.danger : "#333"} style={styles.dropdownIcon} />
+                  <Text style={[
+                    styles.dropdownText,
+                    item.label === translate('Odjava') && { color: theme.danger },
+                  ]}>{item.label}</Text>
                 </View>
               </TouchableOpacity>
             )}
