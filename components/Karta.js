@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet, ImageBackground, PermissionsAndroid, Platform } from 'react-native';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-import Geolocation from 'react-native-geolocation-service';
+//import Geolocation from 'react-native-geolocation-service';
 import { SettingsContext } from '../SettingsContext';
 
 const Karta = () => {
-  const [mapLoaded, setMapLoaded] = useState(false);
+ 
+ /* const [mapLoaded, setMapLoaded] = useState(false);
   const [location, setLocation] = useState(null);
   const { translate, theme, getBackgroundImage } = useContext(SettingsContext);
 
@@ -91,6 +92,12 @@ const Karta = () => {
       </View>
     </ImageBackground>
   );
+*/
+  return (
+    <View style={styles.container}>
+      Tekst
+    </View>
+  )
 };
 
 export default Karta;
@@ -125,4 +132,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
   },
-});
+  });
