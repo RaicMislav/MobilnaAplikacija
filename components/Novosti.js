@@ -1,9 +1,21 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, ImageBackground, SafeAreaView } from 'react-native';
 import { SettingsContext } from '../SettingsContext';
+import { isAdmin } from '../AdminPanel'; // Importing isAdmin from AdminPanel
 
 const NovostiScreen = () => {
   const { language, getBackgroundImage, theme, translate } = useContext(SettingsContext);
+  const [adminStatus, setAdminStatus] = useState(false); // State to track admin status
+
+  // Fetch admin status on component mount
+  useEffect(() => {
+    const checkAdminStatus = async () => {
+      const status = await isAdmin(); // Get the current user admin status
+      setAdminStatus(status); // Update state based on result
+    };
+
+    checkAdminStatus();
+  }, []); // Empty dependency array ensures this runs only once when the component mounts
 
   const newsData = {
     en: [
@@ -39,7 +51,14 @@ const NovostiScreen = () => {
             {translate("Novosti i Ažuriranja")}
           </Text>
         </View>
-        
+
+        {/* Conditional rendering of admin status indicator */}
+        {adminStatus && (
+          <View style={styles.adminIndicator}>
+            <Text style={styles.adminText}>Admin Privileges Active</Text>
+          </View>
+        )}
+
         <FlatList
           data={newsData[language]} 
           keyExtractor={(item) => item.id}
@@ -70,6 +89,19 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     color: '#fff',
+  },
+  adminIndicator: {
+    backgroundColor: 'rgba(0, 0, 0, 0.7)', // Slight transparent background for the admin indicator
+    padding: 10,
+    marginVertical: 15,
+    marginHorizontal: 20,
+    borderRadius: 8,
+  },
+  adminText: {
+    fontSize: 16,
+    color: '#FFD700', // Gold color to stand out
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   newsList: {
     flexGrow: 1,
