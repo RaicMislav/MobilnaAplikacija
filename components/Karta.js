@@ -1,26 +1,21 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet, ImageBackground, PermissionsAndroid, Platform, Alert } from 'react-native';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import MapView, { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import { SettingsContext } from '../SettingsContext';
 
 const Karta = () => {
-  const [mapLoaded, setMapLoaded] = useState(false);
   const [location, setLocation] = useState(null);
   const { translate, theme, getBackgroundImage } = useContext(SettingsContext);
 
-  const mapStyles = {
-    width: '100%',
-    height: '100%', 
-  };
-
-  const initialCenter = {
-    lat: 43.34592, 
-    lng: 17.79660, 
+  const initialRegion = {
+    latitude: 43.34592,
+    longitude: 17.79660,
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.01,
   };
 
   useEffect(() => {
-    setMapLoaded(true);
     requestLocationPermission();
   }, []);
 
@@ -30,16 +25,16 @@ const Karta = () => {
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
           {
-            title: "Location Permission",
-            message: "This app needs access to your location.",
+            title: 'Location Permission',
+            message: 'This app needs access to your location.',
           }
         );
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
           getCurrentLocation();
         } else {
           Alert.alert(
-            "Location Permission Denied",
-            "You need to enable location permissions in settings to use this feature.",
+            'Location Permission Denied',
+            'You need to enable location permissions in settings to use this feature.'
           );
         }
       } catch (err) {
@@ -53,22 +48,22 @@ const Karta = () => {
   function handleLocationError(error) {
     if (error.code === 1) {
       Alert.alert(
-        "Location Access Denied",
-        "Please enable location access in your device settings to use this feature.",
-        [{ text: "OK" }]
+        'Location Access Denied',
+        'Please enable location access in your device settings to use this feature.',
+        [{ text: 'OK' }]
       );
     } else {
-      console.log("Error getting location:", error.message);
+      console.log('Error getting location:', error.message);
     }
   }
 
   function getCurrentLocation() {
     Geolocation.getCurrentPosition(
       (position) => {
-        console.log("Current Position:", position);
+        console.log('Current Position:', position);
         setLocation({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
         });
       },
       handleLocationError,
@@ -80,27 +75,21 @@ const Karta = () => {
     <ImageBackground
       source={getBackgroundImage()}
       style={styles.container}
-      resizeMode="cover" // Ispravljeno za ImageBackground
+      resizeMode="cover"
     >
       <View style={styles.contentContainer}>
         <Text style={[styles.title, { color: theme.text }]}>Mapa</Text>
         <View style={styles.mapContainer}>
-          {mapLoaded ? (
-            <LoadScript googleMapsApiKey="AIzaSyBwsDiKGcVtGZJo11d5-eXwnr02q2UmtXo">
-              <GoogleMap
-                mapContainerStyle={mapStyles}
-                center={initialCenter}
-                zoom={15}
-                onLoad={() => console.log("Mapa je učitana")}
-                onError={(error) => console.error("Greška pri učitavanju mape:", error)}
-              >
-                <Marker position={initialCenter} />
-                {location && <Marker position={location} />}
-              </GoogleMap>
-            </LoadScript>
-          ) : (
-            <Text style={styles.loadingText}>Učitavanje mape...</Text>
-          )}
+          <MapView
+            style={StyleSheet.absoluteFillObject}
+            initialRegion={initialRegion}
+            showsUserLocation={true}
+            onMapReady={() => console.log('Map is ready')}
+            onError={(error) => console.error('Error loading map:', error)}
+          >
+            <Marker coordinate={initialRegion} />
+            {location && <Marker coordinate={location} />}
+          </MapView>
         </View>
       </View>
     </ImageBackground>
@@ -117,11 +106,10 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    justifyContent: 'center', 
+    justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
     paddingVertical: 10,
-    height: '100%',
   },
   title: {
     fontSize: 24,
@@ -129,14 +117,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   mapContainer: {
-    flex: 1, 
+    flex: 1,
     width: '100%',
-    height: '100%',
     borderRadius: 10,
     overflow: 'hidden',
-  },
-  loadingText: {
-    fontSize: 16,
-    textAlign: 'center',
   },
 });
