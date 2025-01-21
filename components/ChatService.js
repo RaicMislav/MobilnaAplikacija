@@ -1,28 +1,57 @@
-import express from 'express';
-import dotenv from 'dotenv';
 import axios from 'axios';
 
-dotenv.config();
+const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
-const app = express();
-app.use(express.json());
+/**
+ * Sends a message to the OpenAI API and gets a bot response.
+ * @param {string} userMessage - The user's message to send.
+ * @returns {Promise<string>} - The bot's response.
+ */
+export const sendMessageToBot = async (userMessage) => {
+  const MAX_RETRIES = 3; // Maximum number of retries
+  let attempt = 0;
 
-const API_URL = 'https://api.openai.com/v1/engines/davinci-codex/completions';
-const API_KEY = process.env.OPENAI_API_KEY;
-
-app.post('/api/sendMessage', async (req, res) => {
-  try {
-    const { message } = req.body;
-    const response = await axios.post(
-      API_URL,
-      { prompt: message, max_tokens: 150 },
-      { headers: { Authorization: `Bearer ${API_KEY}` } }
-    );
-    res.json(response.data);
-  } catch (error) {
-    res.status(500).json({ error: 'Error communicating with OpenAI' });
+  // Validate input message
+  if (!userMessage || userMessage.trim().length === 0) {
+    return 'Please provide a valid message.';
   }
-});
 
-app.listen(5000, () => console.log('Server running on http://localhost:5000'));
+  while (attempt < MAX_RETRIES) {
+    try {
+      const response = await axios.post(
+        OPENAI_API_URL,
+        {
+          model: 'text-ada-001',
+          messages: [
+            { role: 'system', content: 'You are a helpful assistant.' },
+            { role: 'user', content: userMessage },
+          ],
+          max_tokens: 150, // Adjust token limit based on your use case
+          temperature: 0.7, // Adjust creativity level (0.0 to 1.0)
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${OPENAI_API_KEY}`,
+          },
+        }
+      );
 
+      // Check if response data is valid
+      if (response.data && response.data.choices && response.data.choices.length > 0) {
+        return response.data.choices[0].message.content.trim();
+      }
+      return "Sorry, I couldn't understand that.";
+    } catch (error) {
+      // Log full error response for easier debugging
+      console.error('Error communicating with OpenAI:', error.response ? error.response.data : error.message);
+
+      attempt += 1;
+      if (attempt === MAX_RETRIES) {
+        // If retries are exhausted, return a friendly error message
+        return 'There was an error communicating with the bot. Please try again later.';
+      }
+    }
+  }
+};
