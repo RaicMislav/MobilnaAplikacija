@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, StyleSheet, ImageBackground, PermissionsAndroid, Platform } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, PermissionsAndroid, Platform, Alert } from 'react-native';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-//import Geolocation from 'react-native-geolocation-service';
+import Geolocation from 'react-native-geolocation-service';
 import { SettingsContext } from '../SettingsContext';
 
 const Karta = () => {
- 
- /* const [mapLoaded, setMapLoaded] = useState(false);
+  const [mapLoaded, setMapLoaded] = useState(false);
   const [location, setLocation] = useState(null);
   const { translate, theme, getBackgroundImage } = useContext(SettingsContext);
 
@@ -32,19 +31,34 @@ const Karta = () => {
           PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
           {
             title: "Location Permission",
-            message: "This app needs access to your location."
+            message: "This app needs access to your location.",
           }
         );
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
           getCurrentLocation();
         } else {
-          console.log("Location permission denied");
+          Alert.alert(
+            "Location Permission Denied",
+            "You need to enable location permissions in settings to use this feature.",
+          );
         }
       } catch (err) {
         console.warn(err);
       }
     } else {
       getCurrentLocation();
+    }
+  }
+
+  function handleLocationError(error) {
+    if (error.code === 1) {
+      Alert.alert(
+        "Location Access Denied",
+        "Please enable location access in your device settings to use this feature.",
+        [{ text: "OK" }]
+      );
+    } else {
+      console.log("Error getting location:", error.message);
     }
   }
 
@@ -57,9 +71,7 @@ const Karta = () => {
           lng: position.coords.longitude,
         });
       },
-      (error) => {
-        console.log("Error getting location:", error.code, error.message);
-      },
+      handleLocationError,
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
     );
   }
@@ -68,6 +80,7 @@ const Karta = () => {
     <ImageBackground
       source={getBackgroundImage()}
       style={styles.container}
+      resizeMode="cover" // Ispravljeno za ImageBackground
     >
       <View style={styles.contentContainer}>
         <Text style={[styles.title, { color: theme.text }]}>Mapa</Text>
@@ -86,18 +99,12 @@ const Karta = () => {
               </GoogleMap>
             </LoadScript>
           ) : (
-            <Text>Učitavanje mape...</Text>
+            <Text style={styles.loadingText}>Učitavanje mape...</Text>
           )}
         </View>
       </View>
     </ImageBackground>
   );
-*/
-  return (
-    <View style={styles.container}>
-      Tekst
-    </View>
-  )
 };
 
 export default Karta;
@@ -132,4 +139,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
   },
-  });
+});
