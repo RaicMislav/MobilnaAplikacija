@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, Text, FlatList, StyleSheet, TouchableOpacity, Keyboard, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
-import { sendMessageToBot } from './ChatService'; // Import the function to interact with OpenAI
+import { sendMessageToBot } from './ChatService'; // This remains the same as long as the service function is updated
 
 const ChatbotScreen = () => {
   const [messages, setMessages] = useState([]);
