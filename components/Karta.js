@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet, ImageBackground, PermissionsAndroid, Platform, Alert } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
-import Geolocation from 'react-native-geolocation-service';
 import { SettingsContext } from '../SettingsContext';
 
 const Karta = () => {
-  const [location, setLocation] = useState(null);
+ /* const [location, setLocation] = useState(null);
   const { translate, theme, getBackgroundImage } = useContext(SettingsContext);
 
   const initialRegion = {
@@ -16,7 +14,7 @@ const Karta = () => {
   };
 
   useEffect(() => {
-    requestLocationPermission();
+ //   requestLocationPermission();
   }, []);
 
   async function requestLocationPermission() {
@@ -80,6 +78,7 @@ const Karta = () => {
       <View style={styles.contentContainer}>
         <Text style={[styles.title, { color: theme.text }]}>Mapa</Text>
         <View style={styles.mapContainer}>
+      { Map 
           <MapView
             style={StyleSheet.absoluteFillObject}
             initialRegion={initialRegion}
@@ -90,10 +89,12 @@ const Karta = () => {
             <Marker coordinate={initialRegion} />
             {location && <Marker coordinate={location} />}
           </MapView>
+          }
         </View>
       </View>
     </ImageBackground>
   );
+  */
 };
 
 export default Karta;
