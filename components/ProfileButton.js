@@ -9,7 +9,7 @@ const ProfileButton = () => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [emoji, setEmoji] = useState('👋');
   const { translate, theme } = useContext(SettingsContext);
-  const { logout } = useContext(AuthContext);
+  const { logout, user } = useContext(AuthContext);
   const navigation = useNavigation();
 
   const emojis = [''];
@@ -32,7 +32,7 @@ const ProfileButton = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.profilePicture} onPress={toggleDropdown}>
-        <Text style={styles.profileText}>MR</Text>
+        <Text style={styles.profileText}>{user?.name.charAt(0).toUpperCase() + user?.surname.charAt(0).toUpperCase()}</Text>
       </TouchableOpacity>
 
       {isDropdownVisible && (

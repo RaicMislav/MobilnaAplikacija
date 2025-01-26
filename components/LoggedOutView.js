@@ -36,7 +36,7 @@ export default function LoggedOutView() {
       }
 
       // On successful login, call the login function from AuthContext
-      login();
+      login(email);
     } catch (error) {
       let errorMessage = "Something went wrong. Please try again.";
 

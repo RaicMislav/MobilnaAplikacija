@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, ImageBackground, ScrollView, TextInput, TouchableOpacity, Alert } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { SettingsContext } from '../SettingsContext';
 import { launchImageLibrary } from 'react-native-image-picker';  // Import the image picker
 import { supabase } from '../supabaseConfig';  // Import Supabase config
+import { AuthContext } from '../AuthContext';
 
 const Profile = () => {
   const { theme, translate, getBackgroundImage, getLogo } = useContext(SettingsContext);
@@ -29,12 +30,44 @@ const Profile = () => {
   ]);
   const [photoUri, setPhotoUri] = useState(null); // Store the selected photo URI
   const [isUploadVisible, setIsUploadVisible] = useState(false); // Track visibility of the upload button
+  const { user } = useContext(AuthContext);
 
-  const handleSave = () => {
-    Alert.alert(
-      'Podaci spremljeni',
-      `Ime: ${name}\nPrezime: ${surname}\nEmail: ${email}\nDržava: ${country}\nMobitel: ${mobile}\nAdresa: ${address}\nGrad: ${city}`
-    );
+  console.log(user)
+
+  useEffect(() => {
+     setName(user?.name);
+     setSurname(user?.surname);
+     setEmail(user?.email);
+     setCountry(user?.country);
+     setMobile(user?.mobile);
+     setCity(user?.city);
+     setAddress(user?.address);
+  }, [])
+  const handleSave = async () => {
+    try {
+      const { error } = await supabase
+        .from("profiles") // Replace with your actual table name
+        .update({
+          name,
+          surname,
+          email,
+          country,
+          mobile,
+          city,
+          address,
+        })
+        .eq("id", user.id); // Match the `id` of the logged-in user
+  
+      if (error) {
+        Alert.alert("Error", "Failed to update profile. Please try again.");
+        console.error("Error updating profile:", error.message);
+      } else {
+        Alert.alert("Success", "Profile updated successfully.");
+      }
+    } catch (error) {
+      Alert.alert("Error", "An unexpected error occurred. Please try again.");
+      console.error("Unexpected error:", error.message);
+    }
   };
 
   const customSearchFunction = (text) => {
