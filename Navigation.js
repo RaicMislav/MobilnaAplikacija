@@ -36,7 +36,7 @@ const Navigation = () => {
                         {/* Start Screen */}
                         <Stack.Screen 
                             name="Start" 
-                            component={StartScreen} 
+                            component={LoggedOutView} 
                             options={{ headerShown: false }} 
                         />
                         {/* Register Screen */}
